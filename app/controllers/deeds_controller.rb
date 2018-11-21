@@ -1,6 +1,10 @@
 class DeedsController < ApplicationController
 
+    before_action :find_deed, only: [:show, :edit, :update, :destroy]
+
     def index
+
+        @deeds = Deed.all.order(created_at: :desc)
     end
 
     def new
@@ -26,6 +30,7 @@ class DeedsController < ApplicationController
 
 
     def show
+        render :show 
         
     end 
 
@@ -34,5 +39,9 @@ class DeedsController < ApplicationController
 
     def deed_params
         params.require(:deed).permit(:deed, :title, :body, :money_required, :image_url, :location)
+    end
+
+    def find_deed
+        @deed = Deed.find params[:id]
     end
 end

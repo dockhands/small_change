@@ -1,1 +1,18 @@
-<h1> All Deeds</h1>
+
+
+<h1 class="mx-2 text-center">All Deeds</h1>
+<div class="container">  
+  <div class="row justify-content-md-center" id="quiz-index">
+  
+    <% @deeds.each do |d| %>
+      <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
+        <div class="card m-2 container-fluid p-0 card-shadow">
+            <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>
+          </div>       
+            <p class="card-text"><%= d.body.slice(0, 100)%>...</p> 
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

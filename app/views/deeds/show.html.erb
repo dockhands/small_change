@@ -1,18 +1,8 @@
 <h1>Deed Deets</h1>
 <p><%= @deed.title %></p>
-<p><%= @question.option0 %></p>
-<p><%= @question.option0 %></p>
-<p><%= @question.option0 %></p>
+<p><%= @deed.body %></p>
+<p><%= @deed.money_required%></p>
+<p><%= @deed.location %></p>
 
 
-
-
-
-<p><%= @question.option0 %></p>
-<p><%= @question.option0 %></p>
-<p><%= @question.option0 %></p>
-<p><%= @question.option1 %></p>
-<p><%= @question.option2 %></p>
-<p><%= @question.option3 %></p>
-<p><%= @question.correct_answer %></p>
-<%= link_to 'Edit', edit_question_path %>
+<%= link_to 'Edit', edit_deed_path %>
