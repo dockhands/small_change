@@ -17,6 +17,16 @@
       <%= link_to("Make Deed", new_deed_path, class: "nav-link") %>
       <%= link_to("Sign Up", new_user_path, class: "nav-link")%>
 
+          <% if user_signed_in? %>
+      Hello <%= current_user.full_name %>,
+      <%= link_to "Logout", session_path, method: :delete,
+                data: {confirm: "are you sure you want to log out?"}%>
+    <% else %>
+      <%= link_to "Login", new_sessions_path %> |
+      <%= link_to "Sign Up", new_user_path %>
+    <% end %>
+    <hr>
+
       </nav>
     </header>
 
