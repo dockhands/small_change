@@ -1,0 +1,25 @@
+
+<div class="mx-2">
+<h3> <%= @user.username.titleize %>'s account details</h3>
+<br>
+
+<div class="card" >
+  <div class="card-body">
+    <h4 class="card-title"><%= @user.first_name.titleize %> <%= @user.last_name.titleize %></h4>
+    <p class="card-text"> Username: <%= @user.username.titleize %></p>
+    <p class="card-text"> Email: <%= @user.email %></p>
+
+    <a href=""
+    class="btn btn-primary"> Funded Deeds <span class="badge badge-light">  List of Deeds </span></a>
+
+    <a href=""
+    class="btn btn-secondary m-2"> Performed Deeds <span class="badge badge-light"> List of Deeds </span></a>
+
+  
+  </div>
+</div>
+
+<br>
+<div class="mx-2">
+<%= link_to('Edit Profile', edit_user_path(@user), class: "btn btn-outline-primary")%>
+</div>

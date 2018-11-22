@@ -2,15 +2,24 @@
 <h1 class="mx-2 text-center">Deeds</h1>
 <div class="container">  
   <div class="row justify-content-md-center" id="deed-index">
+
+  
   
     <% @deeds.each do |d| %>
       <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
         <div class="card m-2 container-fluid p-0 card-shadow">
           <div class="card-header bg-dark" >
-            <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>
+           
+             <img class="card-img-top" src="..." alt="Deed Image"> 
+              <%= image_tag d.image.variant(resize: '200X200') if d.image.attached?%>
+
+           
+
           </div>
-          <div class="card-body bg-light">          
-            <p class="card-text"><%= d.body.slice(0, 100)%>...</p> 
+          <div class="card-body bg-light">        
+
+           <h5 class="card-text"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-dark"%></h5>  
+          
           </div>
         </div>
       </div>
