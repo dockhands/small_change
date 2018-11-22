@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+   
+
     has_many :deeds, dependent: :destroy    
     has_secure_password 
 
@@ -14,5 +16,9 @@ class User < ApplicationRecord
     def full_name
         "#{first_name.capitalize} #{last_name.capitalize}".strip
     end
+
+
+    extend FriendlyId
+    friendly_id :full_name, use: [:slugged, :history, :finders]
 
 end

@@ -39,8 +39,11 @@ class DeedsController < ApplicationController
     end 
 
     def update
+        #when updating deed, we want to clear the slug so it update stoo
+        @deed = find_deed
+        @deed.slug = nil
         if @deed.update deed_params
-          redirect_to deed_path(@deed.id)
+          redirect_to deed_path(@deed)
         else
           if @deed.errors.present?
             flash[:danger] = @deed.errors.full_messages.join(" • ")
@@ -61,6 +64,10 @@ class DeedsController < ApplicationController
     end
 
     def find_deed
-        @deed = Deed.find params[:id]
+        @deed = Deed.friendly.find(params[:id])
+    end
+
+    def to_param
+        "#{id}-#{title}".parameterize
     end
 end
