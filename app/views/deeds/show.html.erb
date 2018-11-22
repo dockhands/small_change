@@ -1,8 +1,32 @@
-<h1>Deed Deets</h1>
-<p><%= @deed.title %></p>
-<p><%= @deed.body %></p>
-<p><%= @deed.money_required%></p>
-<p><%= @deed.location %></p>
+
+<div class="container">  
+  <div class="row justify-content-md-center" id="deed-index">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title"><%= @deed.title %></h5>
+    <p class="card-text"><%= @deed.body %></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Asking for $ <%= @deed.money_required%></li>
+    <li class="list-group-item">Raised $ </li>
+    <li class="list-group-item">City: <p><%= @deed.location %></p></li>
+    <li class="list-group-item">Author: </li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Edit</a>
+  </div>
 
 
-<%= link_to 'Edit', edit_deed_path %>
+
+</div>
+  <%= link_to 'Edit', edit_deed_path %>
+</div>
+
+</div>
+
+
+
+
+

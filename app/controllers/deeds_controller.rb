@@ -34,6 +34,21 @@ class DeedsController < ApplicationController
         
     end 
 
+    def edit 
+    end 
+
+    def update
+        if @deed.update deed_params
+          redirect_to deed_path(@deed.id)
+        else
+          if @deed.errors.present?
+            flash.now[:danger] = @deed.errors.full_messages.join(" • ")
+          end 
+          render :edit
+        end
+    end
+
+
 
     private 
 
