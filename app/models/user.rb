@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-    has_many :deeds, dependent: :nullify    
+    has_many :deeds, dependent: :destroy    
     has_secure_password 
 
 

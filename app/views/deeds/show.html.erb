@@ -1,5 +1,6 @@
 
 <div class="container">  
+
   <div class="row justify-content-md-center" id="deed-index">
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="..." alt="Card image cap">
@@ -11,7 +12,7 @@
     <li class="list-group-item">Asking for $ <%= @deed.money_required%></li>
     <li class="list-group-item">Raised $ </li>
     <li class="list-group-item">City: <p><%= @deed.location %></p></li>
-    <li class="list-group-item">Author: </li>
+    <li class="list-group-item">Author:<%= @deed.user.full_name %> </li>
   </ul>
   <div class="card-body">
     <a href="#" class="card-link">Card link</a>
@@ -25,7 +26,6 @@
 </div>
 
 </div>
-
 
 
 

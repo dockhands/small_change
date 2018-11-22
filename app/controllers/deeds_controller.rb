@@ -3,7 +3,6 @@ class DeedsController < ApplicationController
     before_action :find_deed, only: [:show, :edit, :update, :destroy]
 
     def index
-
         @deeds = Deed.all.order(created_at: :desc)
     end
 
@@ -14,24 +13,24 @@ class DeedsController < ApplicationController
 
     def create
         @deed = Deed.new deed_params
-    
+        @deed.user = current_user
+        puts "============================inside create"
         if @deed.save
+            puts "did save"
             flash[:success] = "Deed made!"
             redirect_to deed_path(@deed)
         else
+            puts "================================didn't save"
             if @deed.errors
                 flash.now[:danger] = @deed.errors.full_messages.join(", ")
             end
             render :new
         end
-
-
     end 
 
-
     def show
-        render :show 
-        
+        @deed = find_deed
+        render :show  
     end 
 
     def edit 
@@ -47,8 +46,6 @@ class DeedsController < ApplicationController
           render :edit
         end
     end
-
-
 
     private 
 
