@@ -3,8 +3,12 @@
 
   <div class="row justify-content-md-center" id="deed-index">
 <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
+
+
+  <img class="card-img-top" src="..." alt="Deed Image"> 
+  <%= image_tag @deed.image.variant(resize: '500X500') if @deed.image.attached?%>
+
+  <div class="card-body"> 
     <h5 class="card-title"><%= @deed.title %></h5>
     <p class="card-text"><%= @deed.body %></p>
   </div>

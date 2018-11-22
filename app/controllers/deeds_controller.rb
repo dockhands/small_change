@@ -60,7 +60,7 @@ class DeedsController < ApplicationController
     private 
 
     def deed_params
-        params.require(:deed).permit(:deed, :title, :body, :money_required, :image_url, :location)
+        params.require(:deed).permit(:deed, :title, :body, :money_required, :image_url, :location, :image)
     end
 
     def find_deed
