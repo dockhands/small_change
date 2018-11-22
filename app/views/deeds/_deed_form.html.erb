@@ -25,9 +25,17 @@
     <%= f.text_field :image_url, class: "form-control",  require: true %>
     </div>
   
-    <%= f.submit 'Create', class: "btn btn-primary mx-2" %>
+    <%= f.submit 'Save', class: "btn btn-primary mx-2" %>
 
   </div>
 <% end %>
 </div>
+
+    </div>
+        <% if @deed.persisted? %>
+          <div class="ml-auto">
+            <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %>
+          </div>
+        <% end %>
+    </div>  
 </div>

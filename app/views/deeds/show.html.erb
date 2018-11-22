@@ -13,20 +13,22 @@
     <li class="list-group-item">Raised $ </li>
     <li class="list-group-item">City: <p><%= @deed.location %></p></li>
     <li class="list-group-item">Author:<%= @deed.user.full_name %> </li>
+
   </ul>
   <div class="card-body">
     <a href="#" class="card-link">Card link</a>
     <a href="#" class="card-link">Edit</a>
   </div>
 
-
-
 </div>
   <%= link_to 'Edit', edit_deed_path %>
 </div>
 
+
 </div>
 
-
+<div class="ml-auto">
+    <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %>
+</div>
 
 

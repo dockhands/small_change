@@ -1,6 +1,8 @@
 class DeedsController < ApplicationController
 
     before_action :find_deed, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, except: [:index, :show]
+
 
     def index
         @deeds = Deed.all.order(created_at: :desc)
@@ -41,10 +43,15 @@ class DeedsController < ApplicationController
           redirect_to deed_path(@deed.id)
         else
           if @deed.errors.present?
-            flash.now[:danger] = @deed.errors.full_messages.join(" • ")
+            flash[:danger] = @deed.errors.full_messages.join(" • ")
           end 
           render :edit
         end
+    end
+
+    def destroy
+        @deed.destroy
+        redirect_to deeds_path
     end
 
     private 
