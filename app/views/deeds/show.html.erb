@@ -21,14 +21,19 @@
   </div>
 
 </div>
-  <%= link_to 'Edit', edit_deed_path %>
+ 
 </div>
 
 
 </div>
-
-<div class="ml-auto">
+<% if can? :crud, @deed %>
+    <div class="ml-auto">
     <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %>
+
+    <div class="ml-auto">
+    <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
+
+<%end %>
 </div>
 
 
