@@ -3,8 +3,8 @@
 
     <%= simple_form_for(@deed) do |f| %>
         <div class="form-group mx-2">
-        <%= f.input :title,  placeholder: "at least 3 characters.." %>
-        <%= f.input :body, rows: 10, placeholder: "at least 20 characters..", label: "Deed deets" %>
+        <%= f.input :title  %>
+        <%= f.input :body, rows: 10, label: "Deed details" %>
         <%= f.input :money_required, label: "Money needed" %>  
         <%= f.input :location, label: "Location" %>
         <%= f.input :image_url, label: "Image URL" %>
