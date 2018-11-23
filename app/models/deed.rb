@@ -4,7 +4,11 @@ class Deed < ApplicationRecord
 
     has_many :funds, dependent: :destroy
     has_many :users, through: :funds
+
+    has_many :taggings
+    has_many :tags, through: :taggings
     has_one_attached :image
+
 
 
     validates :title, presence: true, 
@@ -17,6 +21,20 @@ class Deed < ApplicationRecord
 
     def funded_by?(user)
         funds.find_by_user_id(user.id).present?
+    end
+
+    def all_tags=(names)
+        self.tags = names.split(",").map do |name|
+            Tag.where(name: name.strip).first_or_create!
+        end
+    end
+      
+    def all_tags
+        self.tags.map(&:name).join(", ")
+    end
+
+    def self.tagged_with(name)
+        Tag.find_by_name!(name).deeds
     end
 
 
