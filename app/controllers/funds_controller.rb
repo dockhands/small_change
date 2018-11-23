@@ -18,6 +18,16 @@ class FundsController < ApplicationController
           puts "reached funding"
         end 
 
+        puts " ============ Deed Creator: "
+        puts deed.user.username
+        puts deed.user.wallet 
+
+        puts " ============== Deed Funder: "
+        puts fund.user.username
+        puts fund.user.wallet
+       # fund.user.wallet -1
+        puts fund.user.wallet 
+
       else
         redirect_to deed_path(deed), alert: "Can't fund! Already funded?"
       end

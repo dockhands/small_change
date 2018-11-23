@@ -53,6 +53,7 @@ end
       :last_name,
       :location, 
       :email,
+      :wallet,
       :image_url,
       :password,
       :password_confirmation
