@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :find_current_user, only: [:edit, :update, :destroy]
+  before_action :find_user, only: [:show, :created_deeds]
+
 
   def new
       @user = User.new
@@ -34,6 +36,10 @@ end
     end
   end
 
+  def created_deeds
+    @created_deeds = find_user.deeds
+  end
+
   private
 
   def user_params
@@ -49,8 +55,12 @@ end
     )
   end
 
-  def find_user
+  def find_current_user
     @user = current_user
+  end
+
+  def find_user
+    @user = User.find params[:id]
   end
 
 end

@@ -1,0 +1,26 @@
+<h1>Deeds created by  <%=@created_deeds.first.user.username%></h1>
+<main class="mx-4"> 
+
+<% if @created_deeds == [] %>
+  <div class="row justify-content-center">
+    <p> Haven't created any deds yet</p>
+  </div>
+<% end %>
+
+  <div class="container">  
+    <div class ="row justify-content-md-center" id="quiz-completed">
+      <% @created_deeds.each do |d| %>
+        <div class="col-lg-4 col-sm-12 col-md-6">
+          <div class="card m-2 container-fluid p-0 card-shadow">
+            <div class="card-header bg-created-dark">
+              <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d), :class=>"text-dark" %></h5>
+            </div>
+            <div class="card-body bg-created-light"> 
+              <p class="card-text"> <%= d.body%></p>  
+            </div>
+          </div>
+        </div>    
+      <% end %>
+    </div>
+  </div>   
+</main>

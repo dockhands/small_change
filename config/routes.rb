@@ -5,5 +5,8 @@ Rails.application.routes.draw do
   resources :deeds
   resource :sessions, only: [:new, :create, :destroy]
 
+
+  get("/users/:id/created", { to: "users#created_deeds", as: :created_deeds})
+
   root({ to: 'welcome#index' })
 end

@@ -16,7 +16,7 @@
     <li class="list-group-item">Asking for $ <%= @deed.money_required%></li>
     <li class="list-group-item">Raised $ </li>
     <li class="list-group-item">City: <p><%= @deed.location %></p></li>
-   <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path%> </li>
+   <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
     
 
   </ul>

@@ -1,4 +1,5 @@
 
+
 <div class="mx-2">
 <h3> <%= @user.username.titleize %>'s account details</h3>
 <br>
@@ -12,8 +13,9 @@
     <a href=""
     class="btn btn-primary"> Funded Deeds <span class="badge badge-light">  List of Deeds </span></a>
 
-    <a href=""
-    class="btn btn-secondary m-2"> Performed Deeds <span class="badge badge-light"> List of Deeds </span></a>
+
+    <a href="<%=created_deeds_path%>"
+    class="btn btn-secondary m-2"> Created Deeds <span class="badge badge-light"> List of Deeds </span></a>
 
   
   </div>
