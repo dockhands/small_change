@@ -18,6 +18,8 @@
     <li class="list-group-item">City: <p><%= @deed.location %></p></li>
     <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
 
+    <li class="list-group-item">Tags:<%=raw tag_links(@deed.all_tags)%> </li>
+
   
       <li class="list-group-item">
               <p class="card-title">

@@ -12,5 +12,7 @@ Rails.application.routes.draw do
 
   get("/users/:id/funded", { to: "users#funded_deeds", as: :funded_deeds})
 
+  get 'tags/:tag', to: 'deeds#index', as: "tag"
+
   root({ to: 'welcome#index' })
 end

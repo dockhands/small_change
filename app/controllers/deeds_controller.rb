@@ -5,7 +5,12 @@ class DeedsController < ApplicationController
 
 
     def index
+
+        if params[:tag]
+            @deeds = Deed.tagged_with(params[:tag])
+        else
         @deeds = Deed.all.order(created_at: :desc)
+        end 
     end
 
     def new
@@ -31,8 +36,14 @@ class DeedsController < ApplicationController
     end 
 
     def show
+
+        if params[:tag]
+            @deed = Deed.tagged_with(params[:tag])
+        else
+
         @deed = find_deed
         render :show  
+        end 
     end 
 
     def edit 
@@ -60,7 +71,7 @@ class DeedsController < ApplicationController
     private 
 
     def deed_params
-        params.require(:deed).permit(:deed, :title, :body, :money_required, :image_url, :location, :image)
+        params.require(:deed).permit(:deed, :title, :body, :money_required, :image_url, :location, :image, :all_tags)
     end
 
     def find_deed
