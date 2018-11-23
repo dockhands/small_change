@@ -12,6 +12,12 @@ class FundsController < ApplicationController
       fund.user     = current_user
       if fund.save
         redirect_to deeds_path, notice: "Thanks for funding!!"
+
+        puts "-----------------------------------------"
+        if deed.funds.count === deed.money_required 
+          puts "reached funding"
+        end 
+
       else
         redirect_to deed_path(deed), alert: "Can't fund! Already funded?"
       end

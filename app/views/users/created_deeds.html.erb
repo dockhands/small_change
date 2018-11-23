@@ -1,10 +1,17 @@
-<h1>Deeds created by  <%=@created_deeds.first.user.username%></h1>
-<main class="mx-4"> 
 
 <% if @created_deeds == [] %>
-  <div class="row justify-content-center">
-    <p> Haven't created any deds yet</p>
-  </div>
+
+ <div class="row justify-content-center">
+    <p> No deeds created yet...</p>
+</div>
+
+<% else %>
+
+<h1>Deeds created by  
+<%=@created_deeds.first.user.username%></h1>
+<main class="mx-4"> 
+
+ 
 <% end %>
 
   <div class="container">  
