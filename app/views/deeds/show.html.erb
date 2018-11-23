@@ -2,7 +2,7 @@
 <div class="container">  
 
   <div class="row justify-content-md-center" id="deed-index">
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 40rem;">
 
 
   <img class="card-img-top" src="..." alt="Deed Image"> 
@@ -16,9 +16,19 @@
     <li class="list-group-item">Asking for $ <%= @deed.money_required%></li>
     <li class="list-group-item">Raised $ </li>
     <li class="list-group-item">City: <p><%= @deed.location %></p></li>
-   <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
-    
+    <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
 
+  
+      <li class="list-group-item">
+              <p class="card-title">
+                <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
+                <% if pre_fund %>
+                  <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete %>
+                <% else %>
+                  <%= button_to 'Fund', deed_funds_path(@deed), method: :post %>
+                <% end %>
+              </p>
+            </li>
   </ul>
   <div class="card-body">
     <a href="#" class="card-link">Card link</a>

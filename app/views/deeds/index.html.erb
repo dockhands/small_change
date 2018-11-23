@@ -12,14 +12,22 @@
            
              <img class="card-img-top" src="..." alt="Deed Image"> 
               <%= image_tag d.image.variant(resize: '200X200') if d.image.attached?%>
-
-           
-
           </div>
-          <div class="card-body bg-light">        
+            <div class="card-body bg-light">        
+           <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-dark"%></h5>  
 
-           <h5 class="card-text"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-dark"%></h5>  
-          
+            <li class="list-group-item">
+              <p class="card-title">
+                <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
+                <% if pre_fund %>
+                  <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
+                <% else %>
+                  <%= button_to 'Fund', deed_funds_path(d), method: :post %>
+                <% end %>
+              </p>
+            </li>
+
+
           </div>
         </div>
       </div>

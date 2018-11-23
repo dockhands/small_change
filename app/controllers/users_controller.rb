@@ -40,6 +40,10 @@ end
     @created_deeds = find_user.deeds
   end
 
+  def funded_deeds
+    @funded_deeds = find_user.deeds
+  end
+
   private
 
   def user_params

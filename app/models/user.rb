@@ -1,8 +1,8 @@
 class User < ApplicationRecord
 
-   
-
     has_many :deeds, dependent: :destroy    
+    has_many :funds, dependent: :destroy
+    has_many :funded_campaigns, through: :funds, source: :fund 
     has_secure_password 
 
 
