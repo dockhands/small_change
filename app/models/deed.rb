@@ -4,9 +4,6 @@ class Deed < ApplicationRecord
 
     has_many :funds, dependent: :destroy
     has_many :users, through: :funds
-
-
-
     has_one_attached :image
 
 

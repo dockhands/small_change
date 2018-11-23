@@ -13,7 +13,8 @@
              <img class="card-img-top" src="..." alt="Deed Image"> 
               <%= image_tag d.image.variant(resize: '200X200') if d.image.attached?%>
           </div>
-            <div class="card-body bg-light">        
+            <div class="card-body bg-light">     
+             <li class="list-group-item">Raised $  <%= d.funds.count%></li>   
            <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-dark"%></h5>  
 
             <li class="list-group-item">

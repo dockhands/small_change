@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
   get("/users/:id/created", { to: "users#created_deeds", as: :created_deeds})
 
+  get("/users/:id/funded", { to: "users#funded_deeds", as: :funded_deeds})
+
   root({ to: 'welcome#index' })
 end
