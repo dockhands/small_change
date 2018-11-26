@@ -56,6 +56,10 @@ end
       :wallet,
       :image_url,
       :password,
+      :address,
+      :city,
+      :longitude,
+      :latitude,
       :password_confirmation
     )
   end

@@ -5,6 +5,9 @@ class User < ApplicationRecord
     has_many :funded_deeds, through: :funds, source: :deed 
     has_secure_password 
 
+    geocoded_by :address
+    after_validation :geocode
+    reverse_geocoded_by :latitude, :longitude
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
@@ -15,6 +18,10 @@ class User < ApplicationRecord
 
     def full_name
         "#{first_name.capitalize} #{last_name.capitalize}".strip
+    end
+
+    def address
+        [street, city, state, country].compact.join(', ')
     end
 
 

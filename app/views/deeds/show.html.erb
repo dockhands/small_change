@@ -1,8 +1,13 @@
 
 <div class="container">  
 
+<h1> test</h1>
+<%= request.ip %> 
+
   <div class="row justify-content-md-center" id="deed-index">
-<div class="card" style="width: 40rem;">
+  <div class="card" style="width: 40rem;">
+
+
 
 
   <img class="card-img-top" src="..." alt="Deed Image"> 
@@ -15,7 +20,12 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Asking for $ <%= @deed.money_required%></li>
     <li class="list-group-item">Raised $  <%= @deed.funds.count%></li>
-    <li class="list-group-item">City: <p><%= @deed.location %></p></li>
+    <li class="list-group-item">City: <p><%= @deed.city 
+    %></p></li>
+    
+    <li class="list-group-item">Latitude: <p><%= @deed.latitude %></p></li>
+    <li class="list-group-item">Longitude: <p><%= @deed.longitude %></p></li>
+ 
     <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
 
     <li class="list-group-item">Tags:<%=raw tag_links(@deed.all_tags)%> </li>

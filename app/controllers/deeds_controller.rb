@@ -36,7 +36,9 @@ class DeedsController < ApplicationController
     end 
 
     def show
-
+        @city = request.location.city 
+        puts "----------------------- city"
+        puts request.location.city 
         if params[:tag]
             @deed = Deed.tagged_with(params[:tag])
         else
@@ -68,10 +70,37 @@ class DeedsController < ApplicationController
         redirect_to deeds_path
     end
 
+    def near_me
+       
+        @close_deeds = Deed.near(params[:latitude => current_user.latitude, :longitude => current_user.longitude], 1000)
+    
+
+        puts "------------------------------close deeds-"
+        puts @close_deeds
+        puts "----------------------------USER longitude-"
+        puts current_user.longitude
+        puts current_user.latitude
+        puts "-----------------------------DEED longitude-"
+        puts Deed.last.longitude
+        puts Deed.last.latitude
+
+    end
+
     private 
 
     def deed_params
-        params.require(:deed).permit(:deed, :title, :body, :money_required, :image_url, :location, :image, :all_tags)
+        params.require(:deed).permit(:deed, 
+        :title, 
+        :body, 
+        :money_required, 
+        :image_url, 
+        :location, 
+        :image, 
+        :all_tags,
+        :address,
+        :city,
+        :longitude,
+        :latitude,)
     end
 
     def find_deed
