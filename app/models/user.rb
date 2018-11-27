@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_many :funded_deeds, through: :funds, source: :deed 
     has_secure_password 
 
-    geocoded_by :address
+  
     after_validation :geocode
     reverse_geocoded_by :latitude, :longitude
 
@@ -21,7 +21,7 @@ class User < ApplicationRecord
     end
 
     def address
-        [street, city, state, country].compact.join(', ')
+        [city].compact.join(', ')
     end
 
 

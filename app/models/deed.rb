@@ -40,8 +40,8 @@ class Deed < ApplicationRecord
     end
 
     def address
-        [street, city, state, country].compact.join(', ')
-      end
+        [city].compact.join(', ')
+    end
 
     extend FriendlyId
     friendly_id :title, use: [:slugged, :history, :finders]

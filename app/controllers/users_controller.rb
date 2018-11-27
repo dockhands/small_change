@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_action :find_current_user, only: [:edit, :update, :destroy]
   before_action :find_user, only: [:show, :created_deeds]
+  #before_action :set_location
 
 
   def new

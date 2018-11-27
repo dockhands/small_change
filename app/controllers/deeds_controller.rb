@@ -2,12 +2,12 @@ class DeedsController < ApplicationController
 
     before_action :find_deed, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!, except: [:index, :show]
-
+    
 
     def index
 
         if params[:tag]
-            @deeds = Deed.tagged_with(params[:tag])
+        @deeds = Deed.tagged_with(params[:tag])
         else
         @deeds = Deed.all.order(created_at: :desc)
         end 
@@ -21,13 +21,11 @@ class DeedsController < ApplicationController
     def create
         @deed = Deed.new deed_params
         @deed.user = current_user
-        puts "============================inside create"
         if @deed.save
             puts "did save"
             flash[:success] = "Deed made!"
             redirect_to deed_path(@deed)
         else
-            puts "================================didn't save"
             if @deed.errors
                 flash.now[:danger] = @deed.errors.full_messages.join(", ")
             end
@@ -36,9 +34,7 @@ class DeedsController < ApplicationController
     end 
 
     def show
-        @city = request.location.city 
-        puts "----------------------- city"
-        puts request.location.city 
+      
         if params[:tag]
             @deed = Deed.tagged_with(params[:tag])
         else
@@ -72,17 +68,11 @@ class DeedsController < ApplicationController
 
     def near_me
        
-        @close_deeds = Deed.near(params[:latitude => current_user.latitude, :longitude => current_user.longitude], 1000)
+        @close_deeds = Deed.near([current_user.latitude, current_user.longitude], 100)
+
     
 
-        puts "------------------------------close deeds-"
-        puts @close_deeds
-        puts "----------------------------USER longitude-"
-        puts current_user.longitude
-        puts current_user.latitude
-        puts "-----------------------------DEED longitude-"
-        puts Deed.last.longitude
-        puts Deed.last.latitude
+    
 
     end
 
