@@ -15,7 +15,7 @@ class Deed < ApplicationRecord
     validates :body, presence: true,
     length: { minimum: 20, maximum: 500 }
     validates :money_required, presence: true
-    validates :location, presence: true
+    validates :city, presence: true
 
     geocoded_by :address
     after_validation :geocode
