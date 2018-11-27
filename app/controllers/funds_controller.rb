@@ -17,15 +17,19 @@ class FundsController < ApplicationController
         puts "-----------------------------------------"
         if deed.funds.count === deed.money_required 
         puts "reached funding"
+        puts "deed user ===="
+        puts deed.user.full_name 
+        puts "funder name ===="
+        puts fund.user.full_name 
+
+        
+
+        FundsMailer.notify_deed_owner(fund).deliver_now
+
+          puts "--------------- email sent!?"
         end 
 
-        puts " ============ Deed Creator: "
-        puts deed.user.username
-        puts deed.user.wallet 
-
-        puts " ============== Deed Funder: "
-        puts fund.user.username
-        puts fund.user.wallet
+    
         fund.user.wallet -= 1
         current_user.save
         puts fund.user.wallet 
@@ -47,6 +51,9 @@ class FundsController < ApplicationController
         redirect_to deeds_path, notice: "Removed funding"
       end
 
+
+ 
+
       private 
       def find_deed
         @deed = Deed.find(params[:deed_id])
@@ -54,6 +61,6 @@ class FundsController < ApplicationController
 
       def find_fund
         @fund = @deed.funds.find(params[:id])
-       end
+      end
 
 end
