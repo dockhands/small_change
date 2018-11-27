@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_201908) do
+ActiveRecord::Schema.define(version: 2018_11_26_034202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,10 @@ ActiveRecord::Schema.define(version: 2018_11_23_201908) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "slug"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.string "address"
     t.index ["slug"], name: "index_deeds_on_slug", unique: true
     t.index ["user_id"], name: "index_deeds_on_user_id"
   end
@@ -70,6 +74,23 @@ ActiveRecord::Schema.define(version: 2018_11_23_201908) do
     t.datetime "updated_at", null: false
     t.index ["deed_id"], name: "index_funds_on_deed_id"
     t.index ["user_id"], name: "index_funds_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "address"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -99,6 +120,10 @@ ActiveRecord::Schema.define(version: 2018_11_23_201908) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.integer "wallet"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.string "address"
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 

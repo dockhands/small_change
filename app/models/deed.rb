@@ -9,15 +9,17 @@ class Deed < ApplicationRecord
     has_many :tags, through: :taggings
     has_one_attached :image
 
-
-
     validates :title, presence: true, 
     uniqueness: true,
     length: { maximum: 60}
     validates :body, presence: true,
     length: { minimum: 20, maximum: 500 }
     validates :money_required, presence: true
-    validates :location, presence: true
+    validates :city, presence: true
+
+    geocoded_by :address
+    after_validation :geocode
+    reverse_geocoded_by :latitude, :longitude
 
     def funded_by?(user)
         funds.find_by_user_id(user.id).present?
@@ -37,6 +39,9 @@ class Deed < ApplicationRecord
         Tag.find_by_name!(name).deeds
     end
 
+    def address
+        [city].compact.join(', ')
+    end
 
     extend FriendlyId
     friendly_id :title, use: [:slugged, :history, :finders]
