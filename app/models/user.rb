@@ -5,8 +5,8 @@ class User < ApplicationRecord
     has_many :funded_deeds, through: :funds, source: :deed 
     has_secure_password 
 
-    geocoded_by :address 
-    after_validation :geocode, if: :address_changed?
+    geocoded_by :address
+    after_validation :geocode
     reverse_geocoded_by :latitude, :longitude
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
