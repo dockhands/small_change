@@ -17,15 +17,14 @@ class FundsController < ApplicationController
         puts "-----------------------------------------"
         if deed.funds.count === deed.money_required 
         puts "reached funding"
+        puts "deed user ===="
+        puts deed.user.full_name 
+        puts "funder name ===="
+        puts fund.user.full_name 
+
         end 
 
-        puts " ============ Deed Creator: "
-        puts deed.user.username
-        puts deed.user.wallet 
-
-        puts " ============== Deed Funder: "
-        puts fund.user.username
-        puts fund.user.wallet
+    
         fund.user.wallet -= 1
         current_user.save
         puts fund.user.wallet 
