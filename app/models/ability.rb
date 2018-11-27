@@ -16,5 +16,6 @@ class Ability
       can :crud, Deed do |deed|
         deed.user == user
       end
+
   end
 end

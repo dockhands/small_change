@@ -30,6 +30,7 @@
             <% else %>
               <%= button_to 'Fund', deed_funds_path(@deed), method: :post %>
             <% end %>
+            (<%= @deed.aasm_state.humanize %>)
           </p>
         </li>
 

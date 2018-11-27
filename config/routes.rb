@@ -16,5 +16,7 @@ Rails.application.routes.draw do
 
   get 'tags/:tag', to: 'deeds#index', as: "tag"
 
+  resources :complete_fundings, only: :create
+
   root({ to: 'welcome#index' })
 end

@@ -1,7 +1,7 @@
 class DeedsController < ApplicationController
 
     before_action :find_deed, only: [:show, :edit, :update, :destroy]
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticate_user!, except: [:index, :show, :funded]
     
 
     def index
@@ -12,6 +12,10 @@ class DeedsController < ApplicationController
         @deeds = Deed.all.order(created_at: :desc)
         end 
     end
+
+    def funded
+        @deeds = Deed.viewable.order(created_at: :desc)
+    end 
 
     def new
         @deed = Deed.new
@@ -69,10 +73,6 @@ class DeedsController < ApplicationController
     def near_me
        
         @deeds = Deed.near([current_user.latitude, current_user.longitude], 100)
-
-    
-
-    
 
     end
 

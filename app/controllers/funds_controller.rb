@@ -12,30 +12,22 @@ class FundsController < ApplicationController
       fund.deed     = deed
       fund.user     = current_user
       
-      if fund.save
-
-        puts "-----------------------------------------"
-        if deed.funds.count === deed.money_required 
-        puts "reached funding"
-        puts "deed user ===="
-        puts deed.user.full_name 
-        puts "funder name ===="
-        puts fund.user.full_name 
-
-        
-
-        FundsMailer.notify_deed_owner(fund).deliver_now
-
-          puts "--------------- email sent!?"
-        end 
-
-    
+      if fund.save && deed.funds.count === deed.money_required 
         fund.user.wallet -= 1
         current_user.save
-        puts fund.user.wallet 
-        
+     
+        FundsMailer.notify_deed_owner(fund).deliver_now
+        deed.meets_required_funding!
+        puts "============================deed fully funded!"
+        puts deed.aasm_state
+        redirect_to deed, notice: "Deed funded!"
+     
+      elsif fund.save && !(deed.funds.count === deed.money_required) 
+        fund.user.wallet -= 1
+        current_user.save
+        puts "============================deed funded : ) "
         redirect_to deeds_path, notice: "Thanks for funding!!"
-
+     
       else
         redirect_to deed_path(deed), alert: "Can't fund! Already funded?"
       end

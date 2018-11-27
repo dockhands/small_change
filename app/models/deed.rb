@@ -21,6 +21,21 @@ class Deed < ApplicationRecord
     after_validation :geocode
     reverse_geocoded_by :latitude, :longitude
 
+    include AASM 
+    aasm do 
+        state :not_fully_funded, initial: true 
+        state :fully_funded
+
+        event :meets_required_funding do 
+            transitions from: :not_fully_funded, to: :fully_funded 
+        end 
+    end 
+
+    def self.viewable 
+        where(assm_state: :funded)
+    end 
+
+
     def funded_by?(user)
         funds.find_by_user_id(user.id).present?
     end
