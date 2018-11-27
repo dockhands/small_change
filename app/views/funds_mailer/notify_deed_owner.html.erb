@@ -1,0 +1,9 @@
+<p>Hi <%= @deed.user.full_name %>,</p>
+ 
+<p>Congratulations! Your deed <%= @deed.title %> has been fully funded.</p>
+
+<p>Click <%= link_to "here", deed_url(@deed) %> to receive your $ <%= @deed.money_required %> and view your deed .</p>
+ 
+<p>Regards,</p>
+ 
+<p>Small change</p>

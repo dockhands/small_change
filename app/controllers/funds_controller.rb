@@ -22,6 +22,11 @@ class FundsController < ApplicationController
         puts "funder name ===="
         puts fund.user.full_name 
 
+        
+
+        FundsMailer.notify_deed_owner(fund).deliver_now
+
+          puts "--------------- email sent!?"
         end 
 
     
@@ -46,6 +51,9 @@ class FundsController < ApplicationController
         redirect_to deeds_path, notice: "Removed funding"
       end
 
+
+ 
+
       private 
       def find_deed
         @deed = Deed.find(params[:deed_id])
@@ -53,6 +61,6 @@ class FundsController < ApplicationController
 
       def find_fund
         @fund = @deed.funds.find(params[:id])
-       end
+      end
 
 end
