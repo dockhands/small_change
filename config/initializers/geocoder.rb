@@ -1,6 +1,6 @@
 Geocoder.configure(
 
-    :timeout => 20
+    :timeout => 5
 
   # Geocoding options
   # timeout: 3,                 # geocoding service timeout (secs)

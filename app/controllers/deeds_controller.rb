@@ -68,7 +68,7 @@ class DeedsController < ApplicationController
 
     def near_me
        
-        @close_deeds = Deed.near([current_user.latitude, current_user.longitude], 100)
+        @deeds = Deed.near([current_user.latitude, current_user.longitude], 100)
 
     
 
