@@ -7,7 +7,7 @@
       <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
         <div class="card m-4 container-fluid p-0 card-shadow">
           <div class="card-header bg-dark" >
-            <%= image_tag d.image.variant(resize: '400X400') if d.image.attached?%>
+            <%= image_tag d.image.variant(resize: '400X400'), class: 'img-fluid' if d.image.attached?%>
           </div>
 
           <div class="card-body bg-light">     
