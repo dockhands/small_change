@@ -1,43 +1,8 @@
 
-<h1 class="mx-2 text-center">Deeds</h1>
-<div class="container">  
-  <div class="row justify-content-md-center" id="deed-index">
 
-    <% @deeds.each do |d| %>
-      <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
-        <div class="card m-4 container-fluid p-0 card-shadow">
-          <div class="card-header bg-dark" >
-          
-            <img class="card-img-top" src="..." alt="Deed Image"> 
-              <%= image_tag d.image.variant(resize: '200X200') if d.image.attached?%>
-          </div>
+<h1 class="mx-2 text-center"> All Deeds Index</h1>
 
-          <div class="card-body bg-light">     
-            <li class="list-group-item">Raised: $<%= d.funds.count%> Goal: $<%= d.money_required%></li>   
-              <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-dark"%></h5>  
-              (<%= d.aasm_state.humanize %>)
-            
-
-              <li class="list-group-item">
-                <p class="card-title">
-                <% if user_signed_in? %>
-                  <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
-                  <% if pre_fund %>
-                    <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
-                  <% else %>
-                    <%= button_to 'Fund', deed_funds_path(d), method: :post %>
-                  <% end %>
-                   <% end %>
-                </p>
-            </li>
-          </div>
-        
-         </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
+<%= render 'deed_index'%>
 
 
 

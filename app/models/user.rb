@@ -3,6 +3,8 @@ class User < ApplicationRecord
     has_many :funds, dependent: :destroy
     has_many :funded_deeds, through: :funds, source: :deed 
     has_secure_password 
+    has_one_attached :image
+
 
     geocoded_by :address
     after_validation :geocode

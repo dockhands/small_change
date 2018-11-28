@@ -3,7 +3,6 @@
   <div class="row justify-content-md-center" id="deed-index">
     <div class="card" style="width: 40rem;">
 
-      <img class="card-img-top" src="..." alt="Deed Image"> 
       <%= image_tag @deed.image.variant(resize: '500X500') if @deed.image.attached?%>
 
       <div class="card-body"> 
@@ -13,12 +12,10 @@
 
       <ul class="list-group list-group-flush">
         
-        <li class="list-group-item">Asking for $ <%= @deed.money_required%></li>
-        <li class="list-group-item">Raised $  <%= @deed.funds.count%></li>
-        <li class="list-group-item">City: <p><%= @deed.city 
-        %></p></li>
-        <li class="list-group-item">Latitude: <p><%= @deed.latitude %></p></li>
-        <li class="list-group-item">Longitude: <p><%= @deed.longitude %></p></li>
+        <li class="list-group-item">Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%> </li>
+        <li class="list-group-item">City: <%= @deed.city 
+        %></li>
+
         <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
         <li class="list-group-item">Tags:<%=raw tag_links(@deed.all_tags)%> </li>
 

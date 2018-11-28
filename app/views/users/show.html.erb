@@ -1,11 +1,13 @@
 
 
 <div class="mx-2">
-<h3> <%= @user.username.titleize %>'s account details</h3>
-<br>
+
 
 <div class="card" >
   <div class="card-body">
+   
+    <%= image_tag @user.image.variant(resize: '300X300') if @user.image.attached?%>
+    <hr>
     <h4 class="card-title"><%= @user.first_name.titleize %> <%= @user.last_name.titleize %></h4>
     <p class="card-text"> Username: <%= @user.username.titleize %></p>
     <p class="card-text"> Wallet: $<%= @user.wallet %></p>

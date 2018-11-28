@@ -2,23 +2,33 @@
   <div class="col-xl-6 col-lg-9 col-md-11">
   <h1 class="mx-2">Sign Up</h1>
 
+
+    <% if @user.present? %>
+    <p>
+      teset
+    </p>
+    <% end %>
+
+
     <% if @user.errors.any? %>
       <% @user.errors.full_messages.each do |msg| %>
           <%  flash.now[:danger] = msg %>
       <% end %>
     <% end %>
 
-    <%= simple_form_for @user do |f| %>
+    <%= simple_form_for(@user) do |f| %>
         <div class="form-group mx-2">
         <%= f.input :username %>
         <%= f.input :first_name%>
         <%= f.input :last_name%>
         <%= f.input :wallet%>
         <%= f.input :city%>
+      
         <%= f.input :email%>
       
         <%= f.input :password %>
         <%= f.input :password_confirmation %>
+        <%= f.input :image %>
         <%= f.submit({class: "btn btn-primary"}) %>
     <% end %>
   </div>
