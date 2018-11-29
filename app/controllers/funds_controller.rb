@@ -7,9 +7,7 @@ class FundsController < ApplicationController
 
     def create
 
-    
-      
-    
+  
       fund          = Fund.new
       deed          = Deed.find_by slug: params[:deed_id]
       fund.deed     = deed
@@ -44,15 +42,22 @@ class FundsController < ApplicationController
     end
 
     def destroy
-      
+    
         deed     = Deed.find params[:deed_id]
         fund     = current_user.funds.find params[:id]
+
+      if deed.fully_funded?
+        flash[:danger] = "Can't unfund a fully funded deed. Sorry..."
+        redirect_to deeds_path
+
+      elsif 
+
         fund.user.wallet += 1
         current_user.save
         fund.destroy
         redirect_to deeds_path, notice: "Removed funding"
       end
-
+    end 
 
  
 
