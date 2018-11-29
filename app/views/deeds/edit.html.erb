@@ -1,3 +1,11 @@
-<h1 class="mx-2 text-center">Edit <%=@deed.title%></h1>
+
+
+<% if @deed.fully_funded? %>
+<h1 class="mx-2 text-center">Give update for <%=@deed.title%></h1>
+<%= render 'completed_deed_form'%>
+<%else%>
 
 <%= render 'deed_form'%>
+<h1 class="mx-2 text-center">Edit <%=@deed.title%></h1>
+
+<%end%>

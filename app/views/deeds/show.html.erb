@@ -32,7 +32,10 @@
         </li>
 
         <li class="list-group-item">
-        <% if can? :crud, @deed %>
+        <% if @deed.fully_funded? %>
+        <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
+
+        <% elsif can? :crud, @deed %>
           
           <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %> 
 
