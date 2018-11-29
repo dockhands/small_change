@@ -4,13 +4,15 @@ class SessionsController < ApplicationController
     end 
     
     def create
-        user = User.find_by_email params[:email]
-        if user && user.authenticate(params[:password])
+        user = User.find_by_email session_params[:email]
+        
+        if user && user.authenticate(session_params[:password])
         session[:user_id] = user.id
 
         flash[:success] = "Signed in!"
         redirect_to root_path
         else
+    
         flash.now[:danger] = 'Wrong credentials!'
         render :new
         end

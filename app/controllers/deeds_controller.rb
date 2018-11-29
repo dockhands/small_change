@@ -86,6 +86,7 @@ class DeedsController < ApplicationController
         :image_url, 
         :location, 
         :image, 
+        :money_raised,
         :all_tags,
         :address,
         :city,

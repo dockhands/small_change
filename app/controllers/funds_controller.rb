@@ -8,7 +8,6 @@ class FundsController < ApplicationController
     def create
       fund          = Fund.new
       deed          = Deed.find_by slug: params[:deed_id]
-      puts params
       fund.deed     = deed
       fund.user     = current_user
       
