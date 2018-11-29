@@ -9,7 +9,7 @@ class DeedsController < ApplicationController
         if params[:tag]
         @deeds = Deed.tagged_with(params[:tag])
         else
-        @deeds = Deed.all.order(created_at: :desc)
+        @deeds = Deed.all.order(created_at: :desc).not_fully_funded
         end 
     end
 
@@ -74,6 +74,12 @@ class DeedsController < ApplicationController
        
         @deeds = Deed.near([current_user.latitude, current_user.longitude], 100)
 
+    end
+
+
+    def fully_funded
+       
+    @deeds = Deed.fully_funded
     end
 
     private 

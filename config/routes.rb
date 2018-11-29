@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get("/users/:id/funded", { to: "users#funded_deeds", as: :funded_deeds})
 
   get("/deeds/near_me/all", { to: "deeds#near_me", as: :near_me})
+  get("/deeds/fully_funded/all", { to: "deeds#fully_funded", as: :fully_funded})
 
   get 'tags/:tag', to: 'deeds#index', as: "tag"
 

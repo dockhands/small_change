@@ -6,29 +6,40 @@ class FundsController < ApplicationController
 
 
     def create
+
+    
+      
+    
       fund          = Fund.new
       deed          = Deed.find_by slug: params[:deed_id]
       fund.deed     = deed
       fund.user     = current_user
+
+      if current_user.wallet < 1
+       
+        flash[:danger] = "You're wallet is empty. You can always add more."
+        redirect_to user_path(current_user)
       
-      if fund.save && deed.funds.count === deed.money_required 
+      elsif fund.save && deed.funds.count === deed.money_required 
         fund.user.wallet -= 1
         current_user.save
      
         FundsMailer.notify_deed_owner(fund).deliver_now
         deed.meets_required_funding!
-        puts "============================deed fully funded!"
         puts deed.aasm_state
-        redirect_to deed, notice: "Deed funded!"
+        flash[:success] = "Deed fully funded!"
+        redirect_to deeds_path
      
       elsif fund.save && !(deed.funds.count === deed.money_required) 
         fund.user.wallet -= 1
         current_user.save
         puts "============================deed funded : ) "
-        redirect_to deeds_path, notice: "Thanks for funding!!"
+        flash[:success] = "Thanks for funding!"
+        redirect_to deeds_path
      
       else
-        redirect_to deed_path(deed), alert: "Can't fund! Already funded?"
+        flash[:danger] = "Can't fund! Already funded?"
+        redirect_to deed_path(deed) 
       end
     end
 
