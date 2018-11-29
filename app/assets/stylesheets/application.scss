@@ -21,15 +21,21 @@
   }
 
  #deed-index .card {
-    height: 220px;
+    height: 450px;
   }
   
   #deed-index .card-header {
-    height: 100px;
+    height: 80px;
   }
   
   #deed-index .card-title {
     text-align: center;
   }
 
- 
+ // IMAGES
+
+ .deed_container 
+{
+ height: 200px;
+ object-fit: none;
+}
