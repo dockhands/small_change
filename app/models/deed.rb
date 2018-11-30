@@ -8,6 +8,8 @@ class Deed < ApplicationRecord
     has_many :taggings, :dependent => :destroy
     has_many :tags, through: :taggings
     has_one_attached :image
+    has_one_attached :completed_image
+   
 
     validates :title, presence: true, 
     uniqueness: true,

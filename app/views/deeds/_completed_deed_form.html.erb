@@ -3,11 +3,20 @@
 
     <%= simple_form_for(@deed) do |f| %>
         <div class="form-group mx-2">
-        <%= f.input :image %>
-        <%= f.input :image %>
+        <%= f.input :title  %>
+        <%= f.input :body, rows: 10, label: "Deed details" %>
+        <%= f.input :money_required, label: "Money needed" %>  
+        <%= f.input :city, label: "City/Town" %>
+        <%= f.input :all_tags %>
         <%= f.input :image %>
         <%= f.submit({class: "btn btn-primary"}) %>
         </div>
+    <% end %>
+
+    <% if @deed.persisted? %>
+          <div class="ml-auto">
+            <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %>
+          </div>
     <% end %>
   </div>
 

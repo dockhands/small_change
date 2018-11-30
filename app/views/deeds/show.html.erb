@@ -16,32 +16,37 @@
         <li class="list-group-item">City: <%= @deed.city 
         %></li>
 
-        <li class="list-group-item">Author:<%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
-        <li class="list-group-item">Tags:<%=raw tag_links(@deed.all_tags)%> </li>
+        <li class="list-group-item">Author: <%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
+        <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
 
+
+      <% if @deed.fully_funded? %>
         <li class="list-group-item">
+        <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
+         <li class="list-group-item">
           <p class="card-title">
-            <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
-            <% if pre_fund %>
-              <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete %>
-            <% else %>
-              <%= button_to 'Fund', deed_funds_path(@deed), method: :post %>
-            <% end %>
-            (<%= @deed.aasm_state.humanize %>)
+          
+             <%= @deed.completed_body %>
+              <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
           </p>
         </li>
 
-        <li class="list-group-item">
-        <% if @deed.fully_funded? %>
-        <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
-
+        <% elsif %>
+          <li class="list-group-item">
+              <p class="card-title">
+                <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
+                <% if pre_fund %>
+                  <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete %>
+                <% else %>
+                  <%= button_to 'Fund', deed_funds_path(@deed), method: :post %>
+                <% end %>
+                (<%= @deed.aasm_state.humanize %>)
+              </p>
+            </li>
+  
         <% elsif can? :crud, @deed %>
-          
           <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %> 
-
-          
           <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
-
             <%end %>
         </li>
 

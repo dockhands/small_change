@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_28_014139) do
+ActiveRecord::Schema.define(version: 2018_11_30_002614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2018_11_28_014139) do
     t.string "city"
     t.string "address"
     t.string "aasm_state"
+    t.text "completed_body"
     t.index ["slug"], name: "index_deeds_on_slug", unique: true
     t.index ["user_id"], name: "index_deeds_on_user_id"
   end
@@ -154,8 +155,13 @@ ActiveRecord::Schema.define(version: 2018_11_28_014139) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "uid"
+    t.string "provider"
+    t.string "oauth_token"
+    t.text "oauth_raw_data"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider"
   end
 
   add_foreign_key "deeds", "users"
