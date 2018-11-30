@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users
   resources :deeds do 
     resources :funds, only: [:create, :destroy]
+    resources :uninteresteds, only: [:create, :destroy]
   end 
   resource :sessions, only: [:new, :create, :destroy]
 

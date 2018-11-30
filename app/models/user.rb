@@ -5,6 +5,8 @@ class User < ApplicationRecord
     has_secure_password 
     has_one_attached :image
 
+    has_many :uninteresteds, dependent: :destroy
+    has_many :uninteresetd_deeds, through: :uninteresteds, source: :deed
 
     geocoded_by :address
     after_validation :geocode

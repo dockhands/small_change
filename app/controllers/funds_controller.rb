@@ -6,8 +6,6 @@ class FundsController < ApplicationController
 
 
     def create
-
-  
       fund          = Fund.new
       deed          = Deed.find_by slug: params[:deed_id]
       fund.deed     = deed
@@ -15,7 +13,7 @@ class FundsController < ApplicationController
 
       if current_user.wallet < 1
        
-        flash[:danger] = "You're wallet is empty. You can always add more."
+        flash[:danger] = "Your wallet is empty. You can always add more funds."
         redirect_to user_path(current_user)
       
       elsif fund.save && deed.funds.count === deed.money_required 

@@ -33,6 +33,9 @@
                     <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
                   <% else %>
                     <%= button_to 'Fund', deed_funds_path(d), method: :post %>
+                     <%= button_to 'Hide', deed_uninteresteds_path(d), method: :post 
+                     
+                     %>
                   <% end %>
                   <% end %>
                 </p>

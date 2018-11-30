@@ -7,9 +7,13 @@ class Deed < ApplicationRecord
 
     has_many :taggings, :dependent => :destroy
     has_many :tags, through: :taggings
+
+    has_many :uninteresteds, dependent: :destroy
+    has_many :users, through: :uninterests
+
     has_one_attached :image
     has_one_attached :completed_image
-   
+
 
     validates :title, presence: true, 
     uniqueness: true,
@@ -54,6 +58,10 @@ class Deed < ApplicationRecord
 
     def self.tagged_with(name)
         Tag.find_by_name!(name).deeds
+    end
+
+    def self.uniniterested_with(name)
+        Uninterested.find_by_name!(name).deeds
     end
 
     def address

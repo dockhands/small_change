@@ -6,25 +6,16 @@ class DeedsController < ApplicationController
 
     def index
 
-        if params[:tag]
-        @deeds = Deed.tagged_with(params[:tag])
-        else
-        @deeds = Deed.all.order(created_at: :desc).not_fully_funded
-        end 
+        if params[:uninterested]
 
-        @deeds.each do |deed|
-            if deed.funds.count > 0
-
-                puts "deed.funds.count = ", deed.funds.count 
-                puts "money required = ", deed.money_required
-                puts "perecent funded = ", deed.percent_funded
-             
-            
-            else 
-                puts "this has no funds"
+            @hidden_deeds = Deed.uninterested_with(params[:uninterested])
+        
+            if params[:tag]
+            @deeds = Deed.tagged_with(params[:tag])
+            else
+            @deeds = Deed.all.order(created_at: :desc).not_fully_funded
             end 
         end 
-
     end
 
     def funded
@@ -107,6 +98,7 @@ class DeedsController < ApplicationController
         :uploads,
         :money_raised,
         :all_tags,
+        :uninterested,
         :address,
         :city,
         :longitude,
