@@ -60,6 +60,12 @@ class Deed < ApplicationRecord
         [city].compact.join(', ')
     end
 
+    def percent_funded
+    
+      ((BigDecimal(funds.count)/BigDecimal(money_required))*100).floor
+     
+    end
+
     extend FriendlyId
     friendly_id :title, use: [:slugged, :history, :finders]
 end

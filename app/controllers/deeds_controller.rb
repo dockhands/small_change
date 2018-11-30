@@ -11,6 +11,20 @@ class DeedsController < ApplicationController
         else
         @deeds = Deed.all.order(created_at: :desc).not_fully_funded
         end 
+
+        @deeds.each do |deed|
+            if deed.funds.count > 0
+
+                puts "deed.funds.count = ", deed.funds.count 
+                puts "money required = ", deed.money_required
+                puts "perecent funded = ", deed.percent_funded
+             
+            
+            else 
+                puts "this has no funds"
+            end 
+        end 
+
     end
 
     def funded
@@ -38,11 +52,10 @@ class DeedsController < ApplicationController
     end 
 
     def show
-      
         if params[:tag]
             @deed = Deed.tagged_with(params[:tag])
         else
-
+       
         @deed = find_deed
         render :show  
         end 
@@ -71,15 +84,12 @@ class DeedsController < ApplicationController
     end
 
     def near_me
-       
-        @deeds = Deed.near([current_user.latitude, current_user.longitude], 100)
-
+        @deeds = Deed.near([current_user.latitude, current_user.longitude], 100) 
     end
 
 
     def fully_funded
-       
-    @deeds = Deed.fully_funded
+        @deeds = Deed.fully_funded.order(created_at: :desc)
     end
 
     private 

@@ -15,11 +15,20 @@
         </div>
 
           <div class="card-body bg-light">     
-            <li class="list-group-item">Raised: $<%= d.funds.count%> out of $<%= d.money_required%></li>   
+            <li class="list-group-item">Raised: $<%= d.funds.count%> out of $<%= d.money_required%> 
+        
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <%= d.percent_funded%>%;" aria-valuenow="<%= d.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= d.percent_funded%>%</div>
+              </div>
+              </li>  
+
+            <% if current_user.present? && d.fully_funded? === false %>
+             <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
+             
               <li class="list-group-item">
                 <p class="card-title">
-                <% if current_user.present? %>
-                  <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
+              
+
                   <% if pre_fund %>
                     <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
                   <% else %>
