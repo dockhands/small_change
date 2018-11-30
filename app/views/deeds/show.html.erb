@@ -6,29 +6,29 @@
       <%= image_tag @deed.image.variant(resize: '500X500') if @deed.image.attached?%>
 
       <div class="card-body"> 
-        <h5 class="card-title"><%= @deed.title %></h5>
+        <h4 class="card-title"><%= @deed.title %></h4>
         <p class="card-text"><%= @deed.body %></p>
       </div>
-
       <ul class="list-group list-group-flush">
         
-        <li class="list-group-item">Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%> </li>
-        <li class="list-group-item">City: <%= @deed.city 
-        %></li>
-
-        <li class="list-group-item">Author: <%= link_to @deed.user.username, user_path(@deed.user.id)%> </li>
+  
+        <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%> </li>
+        <li class="list-group-item"> 
+        City: <%= @deed.city %> | 
+        Creator: <%= link_to @deed.user.username, user_path(@deed.user.id)%> 
+        </li>
         <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
+       
 
-
-      <% if @deed.fully_funded? %>
+      <% if @deed.fully_funded? and can? :crud, @deed %> 
         <li class="list-group-item">
         <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
          <li class="list-group-item">
-          <p class="card-title">
-          
-             <%= @deed.completed_body %>
+         <h5 class="card-title"> Completed deed: </h5>
+          <p class="card-body"> <%= @deed.completed_body %>  </p>
+             <div class="card-body">
               <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
-          </p>
+              </div>
         </li>
 
         <% elsif %>
