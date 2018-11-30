@@ -55,7 +55,8 @@ class FundsController < ApplicationController
         fund.user.wallet += 1
         current_user.save
         fund.destroy
-        redirect_to deeds_path, notice: "Removed funding"
+        flash[:success] =  "Removed funding"
+        redirect_to deeds_path 
       end
     end 
 
