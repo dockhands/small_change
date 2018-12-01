@@ -42,7 +42,7 @@ end
   end
 
   def funded_deeds
-    @funded_deeds = find_user.deeds
+    @funded_deeds = find_user.funded_deeds
   end
 
   private
