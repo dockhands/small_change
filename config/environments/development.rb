@@ -62,4 +62,13 @@ Rails.application.configure do
   #mailer action
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
+  # remove query from console log
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+
+  
+    ActiveRecord::Base.logger = nil
+  end
+
 end

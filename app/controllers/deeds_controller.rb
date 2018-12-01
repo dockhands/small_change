@@ -6,16 +6,14 @@ class DeedsController < ApplicationController
 
     def index
 
-        if params[:uninterested]
+        if params[:tag]
+        @deeds = Deed.tagged_with(params[:tag])
+        else
+        funded_deeds = Deed.all
+        @deeds = filter_uninterested_deeds(funded_deeds)
 
-            @hidden_deeds = Deed.uninterested_with(params[:uninterested])
-        
-            if params[:tag]
-            @deeds = Deed.tagged_with(params[:tag])
-            else
-            @deeds = Deed.all.order(created_at: :desc).not_fully_funded
-            end 
         end 
+      
     end
 
     def funded
@@ -83,6 +81,23 @@ class DeedsController < ApplicationController
         @deeds = Deed.fully_funded.order(created_at: :desc)
     end
 
+
+    def filter_uninterested_deeds(arr)
+        
+        uninterested_deeds = [] 
+        current_user.uninteresteds.each do |deed| 
+            uninterested_deeds << deed.deed_id
+        end   
+
+        @interested_deeds = []
+        Deed.order(created_at: :desc).not_fully_funded.each do |deed|
+            if !uninterested_deeds.include? deed.id
+                @interested_deeds << deed
+            end 
+        end 
+        @interested_deeds
+    end 
+
     private 
 
     def deed_params
@@ -112,4 +127,7 @@ class DeedsController < ApplicationController
     def to_param
         "#{id}-#{title}".parameterize
     end
+
+  
+
 end

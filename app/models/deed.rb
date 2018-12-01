@@ -69,9 +69,7 @@ class Deed < ApplicationRecord
     end
 
     def percent_funded
-    
       ((BigDecimal(funds.count)/BigDecimal(money_required))*100).floor
-     
     end
 
     extend FriendlyId
