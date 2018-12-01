@@ -24,14 +24,14 @@ class FundsController < ApplicationController
         deed.meets_required_funding!
         puts deed.aasm_state
         flash[:success] = "Deed fully funded!"
-        redirect_to deeds_path
+        redirect_back(fallback_location: root_path)
+
      
       elsif fund.save && !(deed.funds.count === deed.money_required) 
         fund.user.wallet -= 1
         current_user.save
-        puts "============================deed funded : ) "
         flash[:success] = "Thanks for funding!"
-        redirect_to deeds_path
+        redirect_back(fallback_location: root_path)
      
       else
         flash[:danger] = "Can't fund! Already funded?"
