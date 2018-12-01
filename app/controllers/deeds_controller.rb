@@ -9,8 +9,8 @@ class DeedsController < ApplicationController
         if params[:tag]
         @deeds = Deed.tagged_with(params[:tag])
         else
-        funded_deeds = Deed.all
-        @deeds = filter_uninterested_deeds(funded_deeds)
+        not_funded_deeds = Deed.all.order(created_at: :desc).not_fully_funded
+        @deeds = filter_uninterested_deeds(not_funded_deeds)
 
         end 
       
@@ -73,7 +73,9 @@ class DeedsController < ApplicationController
     end
 
     def near_me
-        @deeds = Deed.near([current_user.latitude, current_user.longitude], 100) 
+        @deeds = Deed.near([current_user.latitude, current_user.longitude], 100).not_fully_funded
+        render :index
+        
     end
 
 
@@ -90,7 +92,7 @@ class DeedsController < ApplicationController
         end   
 
         @interested_deeds = []
-        Deed.order(created_at: :desc).not_fully_funded.each do |deed|
+        arr.each do |deed|
             if !uninterested_deeds.include? deed.id
                 @interested_deeds << deed
             end 
