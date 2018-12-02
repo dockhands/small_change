@@ -27,15 +27,31 @@
              
               <li class="list-group-item">
                 <p class="card-title">
-              
+                <div id="deed-buttons-container">
 
                   <% if pre_fund %>
                     <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
                   <% else %>
-                    <%= button_to 'Fund', deed_funds_path(d), method: :post %>
-                     <%= button_to 'Hide', deed_uninteresteds_path(d), method: :post 
-                     
-                     %>
+
+                    <div>
+                      <%= button_to deed_uninteresteds_path(d), method: :post do %>
+                      <i class="fas fa-times-circle fa-2x index-button-icon" ></i>
+                      <% end %>
+                    </div>
+
+
+
+                    <div>
+                      <%= button_to deed_path(d), method: :get do %>
+                      <i class="fas fa-info-circle fa-2x index-button-icon" ></i>
+                      <% end %>
+                    </div>
+                    <div>
+                      <%= button_to deed_funds_path(d), method: :post do %>
+                      <i class="fab fa-gratipay fa-2x index-button-icon"></i>
+                      <% end %>
+                    </div>
+                </div>
                   <% end %>
                   <% end %>
                 </p>
