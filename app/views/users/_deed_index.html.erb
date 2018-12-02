@@ -9,7 +9,7 @@
          <div class ="deed_container">
             <%= image_tag d.image.variant(resize: '400X400'), class: 'img-fluid' if d.image.attached?%>
        </div>
-        <div class="card-header bg-dark" >
+        <div class="card-header bg-primary" >
           <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>  
         </div>
 
