@@ -1,32 +1,46 @@
 <div class="row d-flex justify-content-center">
   <div class="col-xl-6 col-lg-9 col-md-11">
-  <h1 class="mx-2">Sign Up</h1>
-
-
-    <% if @user.present? %>
-    <% end %>
-
-
-    <% if @user.errors.any? %>
-      <% @user.errors.full_messages.each do |msg| %>
-          <%  flash.now[:danger] = msg %>
-      <% end %>
-    <% end %>
-
-    <%= simple_form_for(@user) do |f| %>
-        <div class="form-group mx-2">
-        <%= f.input :username %>
-        <%= f.input :first_name%>
-        <%= f.input :last_name%>
-        <%= f.input :wallet%>
-        <%= f.input :city%>
+   <div class="card m-4 container-fluid p-0 card-shadows">
+			<div class="card-header">
       
-        <%= f.input :email%>
-      
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
-        <%= f.input :image %>
-        <%= f.submit({class: "btn btn-primary"}) %>
-    <% end %>
+        <h1 class="mx-2">Sign Up</h1>
+    
+          <% if @user.present? %>
+          <% end %>
+      </div>
+      <br>
+ <div class="card-body"> 
+        <% if @user.errors.any? %>
+          <% @user.errors.full_messages.each do |msg| %>
+              <%  flash.now[:danger] = msg %>
+          <% end %>
+        <% end %>
+
+        <%= simple_form_for(@user) do |f| %>
+            <div class="form-group mx-2 ">
+              
+            <%= f.input :username %>  
+              <div class="flex-input">
+                <div class="name-input"> <%= f.input :first_name%> </div>
+                <div class="name-input">  <%= f.input :last_name%> </div>
+              </div>
+
+            <div class="flex-input">
+              <div class="name-input"> <%= f.input :wallet%> </div>
+              <div class="name-input"><%= f.input :city%></div>
+            </div> 
+          
+              <%= f.input :email%>
+
+                <div class="flex-input">
+                  <div class="name-input"> <%= f.input :password %> </div>
+                  <div class="name-input"> <%= f.input :password_confirmation %> </div>
+                </div>
+         
+            <%= f.input :image, label: "Profile picture" %> 
+            <%= f.submit({class: "btn btn-primary"}) %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

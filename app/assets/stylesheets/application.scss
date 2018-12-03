@@ -46,6 +46,10 @@ body {
   font-family: 'Lobster', Georgia, Times, serif;
 }
 
+.jumbotron > .lead { 
+  width: 800px;
+}
+
 .navbar, .nav-link {
 color:  #f8f9fa;
 }
@@ -63,15 +67,18 @@ color:  #f8f9fa;
  }
 
 p {
- font-family: 'Cabin', Helvetica, Arial, sans-serif;
+ font-family: 'Nunito', sans-serif;
  font-size: 15px;
  line-height: 25px;
 }
 h1, h2, h3, h4, h5 {
-  font-family: 'Lobster', Georgia, Times, serif;
+  font-family: 'Lobster', 'Nunito', Times, serif;
   font-size: 70px;
   line-height: 100px;
-  text-shadow: 1px 1px 1px #ccc;
+ }
+ .card-header {
+  font-family: 'Lobster';
+
  }
 
  .small-change-icon {
@@ -130,6 +137,15 @@ border: none;
 @import "font-awesome";
 
 
+.flex-input { 
+  display:flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+.name-input { 
+  width: 50%;
+  padding-right: 15px;
+}
 
 
 .progress-bar { 
