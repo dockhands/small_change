@@ -62,8 +62,16 @@ class DeedsController < ApplicationController
         #when updating deed, we want to clear the slug so it update stoo
         @deed = find_deed
         @deed.slug = nil
-        if @deed.update deed_params
-          redirect_to deed_path(@deed)
+
+        if @deed.update deed_params and @deed.completed_body?
+           
+            puts "deed has been updated! "
+            redirect_to deed_path(@deed)
+
+        elsif @deed.update deed_params
+            redirect_to deed_path(@deed)
+
+     
         else
           if @deed.errors.present?
             flash[:danger] = @deed.errors.full_messages.join(" • ")

@@ -2,6 +2,7 @@
 <div class="container">  
  <div class="row justify-content-md-center">
 
+<%-# Display deed details -%>
 <div class="card mt-4 m-2" style="width: 50rem;">
   <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
   <div class="card-body ">
@@ -20,7 +21,7 @@
       </ul>
   </div>
   
-
+<%-# If the deed is fully funded, then allow the user to update with results-%>
  <% if @deed.fully_funded? and can? :crud, @deed %> 
         <li class="list-group-item align-items-center">
         <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info align-items-center " ) %>
@@ -31,6 +32,8 @@
               <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
               </div>
         </li>
+
+<%-# If the deed is fully funded, then allow others to review-%>
   <% elsif @deed.fully_funded? and @deed.completed_body?%> 
 
    <li class="list-group-item align-items-center">
@@ -78,7 +81,6 @@
             
           </div>
           
-  
         <% elsif can? :crud, @deed %>
           <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %> 
           <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
