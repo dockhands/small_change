@@ -64,8 +64,7 @@ class DeedsController < ApplicationController
         @deed.slug = nil
 
         if @deed.update deed_params and @deed.completed_body?
-           
-            puts "deed has been updated! "
+            mail_all_deed_funders(@deed)
             redirect_to deed_path(@deed)
 
         elsif @deed.update deed_params
@@ -134,6 +133,15 @@ class DeedsController < ApplicationController
             end 
         end 
         @interested_deeds
+    end 
+
+    def mail_all_deed_funders(deed)
+        
+        deed_funders = [] 
+        deed.funds.each do |fund| 
+        user = fund.user 
+            DeedUpdateMailer.notify_deed_funder(user).deliver_now
+        end  
     end 
 
     private 
