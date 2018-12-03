@@ -12,9 +12,13 @@ class DeedsController < ApplicationController
         else
         @not_fully_funded_deeds = Deed.all.order(created_at: :desc).not_fully_funded
 
-        @interested_deeds = filter_uninterested_deeds(@not_fully_funded_deeds)
+            if current_user.present?
+            @interested_deeds = filter_uninterested_deeds(@not_fully_funded_deeds)
 
-        @deeds = filter_deeds_user_has_funded(@interested_deeds) 
+            @deeds = filter_deeds_user_has_funded(@interested_deeds) 
+            else 
+            @deeds = @not_fully_funded_deeds
+            end 
 
         end 
       

@@ -29,6 +29,13 @@
 
 );
 
+
+body { 
+  background:url(asset-path('cream_dust.png')) 0px 0px;
+  
+ 
+}
+
 .navbar, .nav-link {
 color:  #f8f9fa;
 }
@@ -36,7 +43,7 @@ color:  #f8f9fa;
   
   }
   
-
+ 
 
 * {
   font-family: 
@@ -45,9 +52,22 @@ color:  #f8f9fa;
   'Nunito', sans-serif;
  }
 
+p {
+ font-family: 'Cabin', Helvetica, Arial, sans-serif;
+ font-size: 15px;
+ line-height: 25px;
+}
+h1, h2, h3, h4, h5 {
+  font-family: 'Lobster', Georgia, Times, serif;
+  font-size: 70px;
+  line-height: 100px;
+  text-shadow: 1px 1px 1px #ccc;
+ }
 
  .small-change-icon {
+  font-family: 'Lobster', Georgia, Times, serif;
   color:  #f8f9fa;
+  font-size: 20px;
 }
 
 .index-button-icon {
@@ -55,6 +75,13 @@ color:  #f8f9fa;
   size: 5x;
   
 }
+
+.index-button-icon-info {
+  color:  #6CC3D5;
+  size: 5x;
+  
+}
+
 
 
 #deed-index .card {
