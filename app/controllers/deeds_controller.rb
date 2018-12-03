@@ -25,7 +25,7 @@ class DeedsController < ApplicationController
 
     def new
         @deed = Deed.new
-
+       
     end
 
     def create
@@ -49,6 +49,8 @@ class DeedsController < ApplicationController
         else
        
         @deed = find_deed
+        @comment   = Comment.new
+
         render :show  
         end 
     end 

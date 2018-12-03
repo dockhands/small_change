@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_195043) do
+ActiveRecord::Schema.define(version: 2018_12_02_234316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 2018_11_30_195043) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "deed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deed_id"], name: "index_comments_on_deed_id"
+  end
+
   create_table "deeds", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -102,6 +110,14 @@ ActiveRecord::Schema.define(version: 2018_11_30_195043) do
     t.datetime "updated_at", null: false
     t.index ["deed_id"], name: "index_funds_on_deed_id"
     t.index ["user_id"], name: "index_funds_on_user_id"
+  end
+
+  create_table "gifts", force: :cascade do |t|
+    t.float "amount"
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -173,6 +189,7 @@ ActiveRecord::Schema.define(version: 2018_11_30_195043) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider"
   end
 
+  add_foreign_key "comments", "deeds"
   add_foreign_key "deeds", "users"
   add_foreign_key "funds", "deeds"
   add_foreign_key "funds", "users"

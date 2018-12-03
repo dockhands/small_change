@@ -2,23 +2,19 @@
 <div class="container">  
   <div class="row justify-content-md-center" id="deed-index">
     <div class="card" style="width: 40rem;">
-
       <%= image_tag @deed.image.variant(resize: '500X500') if @deed.image.attached?%>
-
       <div class="card-body"> 
         <h4 class="card-title"><%= @deed.title %></h4>
         <p class="card-text"><%= @deed.body %></p>
       </div>
+
       <ul class="list-group list-group-flush">
-        
-  
         <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%> </li>
         <li class="list-group-item"> 
         City: <%= @deed.city %> | 
         Creator: <%= link_to @deed.user.username, user_path(@deed.user.id)%> 
         </li>
         <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
-       
 
       <% if @deed.fully_funded? and can? :crud, @deed %> 
         <li class="list-group-item">
@@ -49,11 +45,24 @@
           <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
             <%end %>
         </li>
-
-
       </ul>
-    </div>
   </div>
+
+         <%= form_for [@deed, @comment] do |f| %>
+        <%= f.text_area :body, rows: 5, label: "Comments"  %>
+        <%= f.submit %>
+        <% end %>
+
+      <% @deed.comments.each do |comm| %>
+        <%= comm.body %>
+        <%= link_to 'Delete Comment', [@deed, comm],
+              method: :delete, data: { confirm: 'Are you sure?' } %>
+
+        <hr>
+      <% end %>
+
+    </div>
+      
 </div>
 
 
