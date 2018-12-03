@@ -3,7 +3,8 @@ class DeedsController < ApplicationController
     before_action :find_deed, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!, except: [:index, :show, :funded]
     
-
+    include DeedsHelper
+    
     def index
 
         if params[:tag]
@@ -49,7 +50,7 @@ class DeedsController < ApplicationController
         else
        
         @deed = find_deed
-        @comment   = Comment.new
+        @comment = Comment.new
 
         render :show  
         end 
@@ -101,48 +102,6 @@ class DeedsController < ApplicationController
     end
 
 
-    def filter_deeds_user_has_funded(arr) 
-
-        funded_deeds = [] 
-        current_user.funded_deeds.each do |deed| 
-            funded_deeds << deed.id
-            puts deed
-        end   
-
-
-        @non_funded_deeds = [] 
-        arr.each do |deed|
-            if !funded_deeds.include? deed.id
-                @non_funded_deeds << deed
-            end 
-        end 
-        @non_funded_deeds
-    end 
-
-    def filter_uninterested_deeds(arr)
-        
-        uninterested_deeds = [] 
-        current_user.uninteresteds.each do |deed| 
-            uninterested_deeds << deed.deed_id
-        end   
-
-        @interested_deeds = []
-        arr.each do |deed|
-            if !uninterested_deeds.include? deed.id
-                @interested_deeds << deed
-            end 
-        end 
-        @interested_deeds
-    end 
-
-    def mail_all_deed_funders(deed)
-        
-        deed_funders = [] 
-        deed.funds.each do |fund| 
-        user = fund.user 
-            DeedUpdateMailer.notify_deed_funder(user).deliver_now
-        end  
-    end 
 
     private 
 

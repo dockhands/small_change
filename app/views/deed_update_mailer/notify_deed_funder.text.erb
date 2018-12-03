@@ -1,8 +1,8 @@
 Hi <%= @user.full_name %>,
  
-A deed funded was fully funded and updated. 
+<%= @deed.title %> has been completed by <%= @deed.user.username %>.
 
-Please give a review!
+Check out the deed <%= link_to "here", deed_url(@deed) %> to rate it.
  
 Regards,
  

@@ -1,0 +1,9 @@
+<p>Hi <%= @user.full_name %>,</p>
+ 
+<p> <%= @deed.title %> has been completed by <%= @deed.user.username %>.</p>
+
+<p>Check out the deed <%= link_to "here", deed_url(@deed) %> to rate it.</p>
+ 
+<p>Regards,</p>
+ 
+<p>Small change</p>
