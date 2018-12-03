@@ -19,8 +19,8 @@
         <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
       </ul>
   </div>
-   </div>
-<div class="card m-2" style="width: 50rem;">
+  
+
  <% if @deed.fully_funded? and can? :crud, @deed %> 
         <li class="list-group-item align-items-center">
         <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info align-items-center " ) %>
@@ -33,16 +33,17 @@
         </li>
 
         <% elsif %>
-          <li class="list-group-item">
-              <p class="card-title">
+          
+            <div style="text-align: center;"> 
                 <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
                 <% if pre_fund %>
                   <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-info" %>
                 <% else %>
                   <%= button_to 'Fund', deed_funds_path(@deed), method: :post, class: "m-2 btn btn-info" %>
                 <% end %>
-              </p>
-            </li>
+            
+          </div>
+          
   
         <% elsif can? :crud, @deed %>
           <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %> 
