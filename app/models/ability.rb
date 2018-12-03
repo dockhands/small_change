@@ -17,5 +17,10 @@ class Ability
         deed.user == user
       end
 
+      can :crud, Comment do |comment|
+        comment.user == user
+      end
+
+
   end
 end

@@ -2,6 +2,7 @@ class User < ApplicationRecord
     has_many :deeds, dependent: :destroy    
     has_many :funds, dependent: :destroy
     has_many :funded_deeds, through: :funds, source: :deed 
+    has_many :comments, dependent: :destroy
     has_secure_password 
     has_one_attached :image
 
