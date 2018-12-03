@@ -4,7 +4,7 @@ class DeedsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show, :funded]
     
     include DeedsHelper
-    
+
     def index
 
         if params[:tag]
@@ -67,11 +67,8 @@ class DeedsController < ApplicationController
         if @deed.update deed_params and @deed.completed_body?
             mail_all_deed_funders(@deed)
             redirect_to deed_path(@deed)
-
         elsif @deed.update deed_params
             redirect_to deed_path(@deed)
-
-     
         else
           if @deed.errors.present?
             flash[:danger] = @deed.errors.full_messages.join(" • ")

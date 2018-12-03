@@ -3,7 +3,7 @@
  <div class="row justify-content-md-center">
 
 <%-# Display deed details -%>
-<div class="card mt-4 m-2" style="width: 50rem;">
+<div class="card mt-4 m-2" style="width: 40rem;">
   <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
   <div class="card-body ">
     <h4 class="card-title"><%= @deed.title %></h4>
@@ -33,7 +33,7 @@
               </div>
         </li>
 
-<%-# If the deed is fully funded, then allow others to review-%>
+<%-# Else if the deed is fully funded, then allow others to review-%>
   <% elsif @deed.fully_funded? and @deed.completed_body?%> 
 
    <li class="list-group-item align-items-center">
@@ -43,7 +43,7 @@
       <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
     </div>
 
-    <h1> This is space for reviews</h1>
+    <h1> Reviews</h1>
       <%= simple_form_for [@deed, @deed.ratings.build] do |f| %>
       <%= f.input :body,label: 'Your feedback' %>
       <%= f.input :score, label: 'Rating', collection: 1..5  %>
@@ -68,27 +68,30 @@
       <% end %>
   
   </li>
+<%-# Else if the deed is fully funded, then allow others to review-%>
 
         <% elsif %>
           
             <div style="text-align: center;"> 
                 <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
                 <% if pre_fund %>
-                  <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-info" %>
+                  <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-secondary" %>
                 <% else %>
-                  <%= button_to 'Fund', deed_funds_path(@deed), method: :post, class: "m-2 btn btn-info" %>
+                  <%= button_to 'Fund', deed_funds_path(@deed), method: :post, class: "m-2 btn btn-primary" %>
                 <% end %>
             
           </div>
-          
-        <% elsif can? :crud, @deed %>
-          <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-info", data: {confirm: "Are you sure?"}) %> 
+  <li class="list-group-item d-flex flex-row-reverse">
+        <% if can? :crud, @deed %>
+          <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-secondary", data: {confirm: "Are you sure?"}) %> 
           <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
         <%end %>
+    <%end %>
+  </li>
 
 </div>
 
-<div class="card m-2" style="width: 50rem;" >
+<div class="card m-2" style="width: 40rem;" >
   <div class="card-body">
    
 

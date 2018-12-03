@@ -19,6 +19,13 @@ class FundsController < ApplicationController
       elsif fund.save && deed.funds.count === deed.money_required 
         fund.user.wallet -= 1
         current_user.save
+
+        puts "deed.user.wallet =============================="
+        puts deed.user.wallet
+        deed.user.wallet += deed.money_required 
+        puts "deed.user.wallet =============================="
+        puts deed.user.wallet
+        deed.user.save 
      
         FundsMailer.notify_deed_owner(fund).deliver_now
         deed.meets_required_funding!
