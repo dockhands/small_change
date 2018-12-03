@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
         @deed = Deed.find params[:deed_id]
         @comment = Comment.find params[:id]
         @comment.destroy
-        flash[:alert] = "Comment!"
+        flash[:alert] = "Removed comment!"
         redirect_to deed_path(@deed)
     end
 end

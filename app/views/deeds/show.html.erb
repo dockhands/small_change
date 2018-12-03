@@ -31,6 +31,40 @@
               <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
               </div>
         </li>
+  <% elsif @deed.fully_funded? and @deed.completed_body?%> 
+
+   <li class="list-group-item align-items-center">
+  
+    <p class="card-body"> <%= @deed.completed_body %>  </p>
+    <div class="card-body">
+      <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
+    </div>
+
+    <h1> This is space for reviews</h1>
+      <%= simple_form_for [@deed, @deed.ratings.build] do |f| %>
+      <%= f.input :body,label: 'Your feedback' %>
+      <%= f.input :score, label: 'Rating', collection: 1..5  %>
+      <%= f.submit({class: "btn btn-primary"}) %>
+      <% end %>
+
+        <br>
+      
+      <% @deed.ratings.each do |rating| %>
+        <li>
+        <%= rating.body %> 
+        <%= rating.score %> 
+         <small>
+         <%= rating.user %>
+          </small>
+         <% if can? :delete, rating %>
+          <small> <%= link_to 'Delete Comment', [@deed, rating],
+                method: :delete, data: { confirm: 'Are you sure?' } %>
+          </small>
+          <% end %>
+        </li>
+      <% end %>
+  
+  </li>
 
         <% elsif %>
           
@@ -54,10 +88,10 @@
 
 <div class="card m-2" style="width: 50rem;" >
   <div class="card-body">
-    <h5 class="card-title">Comments</h5>
+   
 
       <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
-        <%= f.input :body %>
+        <%= f.input :body, label: 'Comments' %>
          <%= f.submit({class: "btn btn-primary"}) %>
       <% end %>
 

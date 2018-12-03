@@ -21,6 +21,10 @@ class Ability
         comment.user == user
       end
 
+      can :crud, Rating do |rating|
+        rating.user == user
+      end
+
 
   end
 end
