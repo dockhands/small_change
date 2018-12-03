@@ -30,10 +30,20 @@
 );
 
 
+#home {
+ 
+  background:url(asset-path('community_bg.jpg')) 0px 0px;
+}
+
 body { 
   background:url(asset-path('cream_dust.png')) 0px 0px;
   
- 
+}
+
+.jumbotron {
+  opacity: .75;
+
+  font-family: 'Lobster', Georgia, Times, serif;
 }
 
 .navbar, .nav-link {
@@ -43,7 +53,7 @@ color:  #f8f9fa;
   
   }
   
- 
+
 
 * {
   font-family: 
