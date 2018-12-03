@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_011410) do
+ActiveRecord::Schema.define(version: 2018_12_03_025039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,15 @@ ActiveRecord::Schema.define(version: 2018_12_03_011410) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "deed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deed_id"], name: "index_ratings_on_deed_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "deed_id"
     t.bigint "tag_id"
@@ -197,6 +206,8 @@ ActiveRecord::Schema.define(version: 2018_12_03_011410) do
   add_foreign_key "deeds", "users"
   add_foreign_key "funds", "deeds"
   add_foreign_key "funds", "users"
+  add_foreign_key "ratings", "deeds"
+  add_foreign_key "ratings", "users"
   add_foreign_key "taggings", "deeds"
   add_foreign_key "taggings", "tags"
   add_foreign_key "uninteresteds", "deeds"

@@ -8,12 +8,7 @@ class UninterestedsController < ApplicationController
         uninterested.user     = current_user
         puts current_user.uninteresteds.count
         if  uninterested.save
-            puts "saved as uninterested! "
-
-           puts current_user.uninteresteds
-        
-           puts "more??"
-           puts current_user.uninteresteds.count
+       
           redirect_to deeds_path
 
         else

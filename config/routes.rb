@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :funds, only: [:create, :destroy]
     resources :uninteresteds, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
+    resources :ratings, only: [:create, :destroy]
   end 
   resource :sessions, only: [:new, :create, :destroy]
 

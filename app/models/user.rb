@@ -9,6 +9,9 @@ class User < ApplicationRecord
     has_many :uninteresteds, dependent: :destroy
     has_many :unintereseted_deeds, through: :uninteresteds, source: :deed
 
+    has_many :ratings, dependent: :destroy
+    has_many :rated_deeds, through: :ratings, source: :deed
+
     geocoded_by :address
     after_validation :geocode
     reverse_geocoded_by :latitude, :longitude
