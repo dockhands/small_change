@@ -81,8 +81,9 @@
                 <% end %>
             
           </div>
-  <li class="list-group-item d-flex flex-row-reverse">
+ 
         <% if can? :crud, @deed %>
+         <li class="list-group-item d-flex flex-row-reverse">
           <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-secondary", data: {confirm: "Are you sure?"}) %> 
           <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
         <%end %>
@@ -91,22 +92,27 @@
 
 </div>
 
+<%-# COMMENT - Allow others to comment on Project - if complete or not-%>
 <div class="card m-2" style="width: 40rem;" >
   <div class="card-body">
    
-
       <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
         <%= f.input :body, label: 'Comments' %>
-         <%= f.submit({class: "btn btn-primary"}) %>
+        <%= f.submit({class: "btn btn-primary"}) %>
       <% end %>
 
    <br>
-        <% if @deed.comments.count > 0 %>
+      <% if @deed.comments.count > 0 %>
       <% @deed.comments.each do |comment| %>
         <li>
         <%= comment.body %> 
-         <small>
-         <%= comment.user %>
+         <small> by 
+         <%= comment.user.username unless comment.user.blank? %>
+         <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?  %>
+
+      
+       
+          
           </small>
          <% if can? :delete, comment %>
           <small> <%= link_to 'Delete Comment', [@deed, comment],

@@ -55,7 +55,7 @@ class DeedsController < ApplicationController
        
         @deed = find_deed
         @comment = Comment.new
-
+  
         render :show  
         end 
     end 

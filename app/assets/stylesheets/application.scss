@@ -35,6 +35,8 @@
   background:url(asset-path('community_bg.jpg')) 0px 0px;
 }
 
+
+
 body { 
   background:url(asset-path('cream_dust.png')) 0px 0px;
   
@@ -46,8 +48,24 @@ body {
   font-family: 'Lobster', Georgia, Times, serif;
 }
 
+
+
 .jumbotron > .lead { 
-  width: 800px;
+  width: 50%; 
+  display:flex;
+  flex-direction: row;
+  padding-right: 15px;
+}
+
+
+.flex-input { 
+  display:flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+.name-input { 
+  width: 50%;
+  padding-right: 15px;
 }
 
 .navbar, .nav-link {
@@ -137,15 +155,7 @@ border: none;
 @import "font-awesome";
 
 
-.flex-input { 
-  display:flex;
-  flex-direction: row;
-  margin: 0 auto;
-}
-.name-input { 
-  width: 50%;
-  padding-right: 15px;
-}
+
 
 
 .progress-bar { 

@@ -1,10 +1,5 @@
 <body id="home">
    
-
-
-
-
-
  <% if flash[:notice].present? || flash[:alert].present? %>
       <div class="flash-message">
         <%= flash[:notice] || flash[:alert] %>
@@ -13,11 +8,18 @@
 
 <div class="jumbotron">
   <h1 class="display-4"> Welcome to Small Change</h1>
-  <p class="lead"> Want to help make the space around you a little better? Small Change is small-scale crowfunding app that lets you create and fund deeds in your community - just with by giving a dollar at a time. </p>
+  <p class="lead"> Want to help make the space around you a little better? Small Change is small-scale crowfunding app that lets you create and fund projects (deeds) in your community... by giving one dollar at a time. </p>
   <hr class="my-4">
-  <p>Find deeds around you or create your own.</p>
+  <p>Discover deeds around you or create your own.</p>
   <p class="lead">
-    <%= button_to("Get started", new_user_path, method: :get,  class: "btn btn-lg btn-primary")%>
+
+  <% if current_user.present? %>
+   
+    <%= button_to("Find nearby deeds!", near_me_path, method: :get, class: "btn btn-lg btn-primary")%>
+      <% else %>
+
+     <%= button_to("Sign up!", new_user_path, method: :get,  class: "btn btn-lg btn-primary")%>
+       <% end%>
   </p>
 </div>
 

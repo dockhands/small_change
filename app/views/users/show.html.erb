@@ -1,10 +1,10 @@
 
+<body id="user-profile">
 
-<div class="mx-2">
+ <div class="col-xl-6 col-lg-9 col-md-11">
 
-
-<div class="card" >
-  <div class="card-body">
+<div class="card m-4"  >
+  <div class="card-body ">
    
     <%= image_tag @user.image.variant(resize: '300X300') if @user.image.attached?%>
     <hr>
@@ -16,19 +16,18 @@
     <p class="card-text"> City: <%= @user.city %></p>
 
    <a href="<%=funded_deeds_path%>"
-    class="btn btn-primary"> Funded Deeds <span class="badge badge-light">  <%= @user.funds.count%></span></a>
-
-    
-
+    class="btn btn-primary mr-2"> Funded Deeds <span class="badge badge-light">  <%= @user.funds.count%></span></a>
 
     <a href="<%=created_deeds_path%>"
-    class="btn btn-secondary m-2"> Created Deeds <span class="badge badge-light"> <%= @user.deeds.count%> </span></a>
+    class="btn btn-secondary"> Created Deeds <span class="badge badge-light"> <%= @user.deeds.count%> </span></a>
 
-  
+   
+    <%= link_to('Edit Profile', edit_user_path(@user), class: "btn btn-outline-primary m-2")%>
+ 
   </div>
 </div>
+<%= image_tag ("/assets/images/profile_extra.jpg", class: "img-responsive")%>
 
-<br>
-<div class="mx-2">
-<%= link_to('Edit Profile', edit_user_path(@user), class: "btn btn-outline-primary")%>
-</div>
+
+
+

@@ -2,11 +2,9 @@ class CommentsController < ApplicationController
 
     def create
         @deed = Deed.find(params[:deed_id])
-        comment_params=  params.require(:comment).permit(:body)
+        comment_params=  params.require(:comment).permit(:username, :created_at, :body)
         @comment = @deed.comments.build(comment_params)
         @comment.user = current_user
-        puts "--------------------------"
-        puts @comment.user.username
         
         if  @comment.save
             flash[:success] = "Comment created!"
