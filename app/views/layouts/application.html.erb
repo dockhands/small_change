@@ -38,8 +38,11 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item">
-            <%= link_to("Make Deed ", new_deed_path, class: "nav-link") %>            </li>
+      <li class="nav-item">
+      <%= link_to("Make Deed ", new_deed_path, class: "nav-link") %>            </li>
+
+        <li class="nav-item">
+      <%= link_to("How it works ", about_path, class: "nav-link") %>            </li>
           </ul>  
           <% if user_signed_in? %>       
             <div class="navbar-nav ml-auto d-flex">         

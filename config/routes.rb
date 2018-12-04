@@ -26,5 +26,7 @@ Rails.application.routes.draw do
 
   resources :complete_fundings, only: :create
 
+  get("/about", { to: "welcome#about", as: :about})
   root({ to: 'welcome#index' })
+  
 end

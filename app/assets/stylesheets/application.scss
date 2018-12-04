@@ -31,24 +31,22 @@
 
 
 #home {
- 
   background:url(asset-path('community_bg.jpg')) 0px 0px;
 }
 
+#about{
+  background:url(asset-path('about_bg.jpg')) 0px 0px;
+}
 
 
 body { 
   background:url(asset-path('cream_dust.png')) 0px 0px;
-  
 }
 
 .jumbotron {
   opacity: .75;
-
   font-family: 'Lobster', Georgia, Times, serif;
 }
-
-
 
 .jumbotron > .lead { 
   width: 50%; 
@@ -57,6 +55,18 @@ body {
   padding-right: 15px;
 }
 
+.jumbotron-about {
+  width: 100%;
+  padding: 30px;
+  padding-bottom: 50px;
+    background: rgba(255, 255, 255, 0.85);
+ 
+  }
+
+#jumbotron-cards {
+    opacity: 1;
+
+  }
 
 .flex-input { 
   display:flex;
@@ -96,7 +106,10 @@ h1, h2, h3, h4, h5 {
  }
  .card-header {
   font-family: 'Lobster';
+ }
 
+ .page-header {
+  font-family: 'Lobster';
  }
 
  .small-change-icon {
@@ -111,10 +124,15 @@ h1, h2, h3, h4, h5 {
   
 }
 
+.about-button-icon {
+  color:  #F3969A;
+  size: 6x;
+  
+}
+
 .index-button-icon-info {
   color:  #6CC3D5;
   size: 5x;
-  
 }
 
 
