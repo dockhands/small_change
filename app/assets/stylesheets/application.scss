@@ -37,6 +37,10 @@
 #about{
   background:url(asset-path('about_bg.jpg')) 0px 0px;
 }
+#user-profile{
+  background:url(asset-path('about_bg.jpg')) 0px 0px;
+}
+
 
 
 body { 
@@ -180,3 +184,13 @@ border: none;
   background-color: #6CC3D5;
 }
 
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  background-color: #78C2AD;
+  color: white;
+  text-align: center;
+}
