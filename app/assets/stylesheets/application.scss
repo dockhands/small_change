@@ -29,6 +29,9 @@
 
 );
 
+.img-profile {
+  border-radius: 50%;
+}
 
 #home {
   background:url(asset-path('community_bg.jpg')) 0px 0px;
@@ -109,6 +112,14 @@ h1, h2, h3, h4, h5 {
   font-size: 70px;
   line-height: 100px;
  }
+
+
+ .small-change-icon {
+  font-family: 'Lobster', Georgia, Times, serif;
+  color:  #f8f9fa;
+  font-size: 20px;
+}
+
  .card-header {
   font-family: 'Lobster';
  }
@@ -117,11 +128,9 @@ h1, h2, h3, h4, h5 {
   font-family: 'Lobster';
  }
 
- .small-change-icon {
-  font-family: 'Lobster', Georgia, Times, serif;
-  color:  #f8f9fa;
-  font-size: 20px;
-}
+
+
+// DEED INDEX
 
 .index-button-icon {
   color:  #F3969A;
@@ -141,9 +150,9 @@ h1, h2, h3, h4, h5 {
 }
 
 
-
 #deed-index .card {
-  height: 450px;
+  max-height: 450;
+  
 }
 
 #deed-index .card-header {
@@ -154,7 +163,7 @@ h1, h2, h3, h4, h5 {
   text-align: center;
 }
 
-// IMAGES
+
 
 .deed_container 
 {

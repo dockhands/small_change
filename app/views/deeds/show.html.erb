@@ -1,134 +1,251 @@
 
-<div class="container">  
- <div class="row justify-content-md-center">
-
-<%-# Display deed details -%>
-<div class="card mt-4 m-2" style="width: 40rem;">
-  <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
-  <div class="card-body ">
-    <h4 class="card-title"><%= @deed.title %></h4>
-     <p class="card-text"><%= @deed.body %></p>
-     <p class="card-text"><small class="text-muted"> Created <%= time_ago_in_words ( @deed.created_at) %> ago, by <%= link_to @deed.user.username, user_path(@deed.user.id)%> in <%= @deed.city %> </small></p>
- 
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%> 
-          <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: <%= @deed.percent_funded%>%; " aria-valuenow="<%= @deed.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= @deed.percent_funded%>%
-                </div>
-          </div>
-        </li>  
-        <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
-      </ul>
-  </div>
+<div class="container">
+  <div class="row">
+    <div class="col">
   
-<%-# If the deed is fully funded, then allow the user to update with results-%>
- <% if @deed.fully_funded? and can? :crud, @deed %> 
-        <li class="list-group-item align-items-center">
-        <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info align-items-center " ) %>
-         <li class="list-group-item">
-         <h5 class="card-title"> Completed deed: </h5>
-          <p class="card-body"> <%= @deed.completed_body %>  </p>
-             <div class="card-body">
-              <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
-              </div>
-        </li>
-
-<%-# Else if the deed is fully funded, then allow others to review-%>
-  <% elsif @deed.fully_funded? and @deed.completed_body?%> 
-
-   <li class="list-group-item align-items-center">
-  
-    <p class="card-body"> <%= @deed.completed_body %>  </p>
-    <div class="card-body">
-      <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
+    <%-# Display deed details -%>
+     <div class="card mt-4 m-2" style="width: 30rem;">
+      <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
+     </div>
     </div>
 
-    <h1> Reviews</h1>
-      <%= simple_form_for [@deed, @deed.ratings.build] do |f| %>
-      <%= f.input :body,label: 'Your feedback' %>
-      <%= f.input :score, label: 'Rating', collection: 1..5  %>
-      <%= f.submit({class: "btn btn-primary"}) %>
-      <% end %>
+    <div class="col">
+     <div class="card mt-4 m-2" style="width: 30rem;">
+      <div class="card-body ">
+        <h4 class="card-title"><%= @deed.title %></h4>
+        <p class="card-text"><%= @deed.body %></p>
+        <p class="card-text"><small class="text-muted"> Created <%= time_ago_in_words ( @deed.created_at) %> ago, by <%= link_to @deed.user.username, user_path(@deed.user.id)%> in <%= @deed.city %> </small></p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: <%= @deed.percent_funded%>%; " aria-valuenow="<%= @deed.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= @deed.percent_funded%>%
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
+        </ul>
+      </div>
 
-        <br>
-      
-      <% @deed.ratings.each do |rating| %>
-        <li>
-        <%= rating.body %> 
-        <%= rating.score %> 
-         <small>
-         <%= rating.user %>
-          </small>
-         <% if can? :delete, rating %>
-          <small> <%= link_to 'Delete Comment', [@deed, rating],
-                method: :delete, data: { confirm: 'Are you sure?' } %>
-          </small>
-          <% end %>
-        </li>
-      <% end %>
+          <% if can? :crud, @deed %>
+            <li class="list-group-item d-flex flex-row-reverse">
+              <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-secondary", data: {confirm: "Are you sure?"}) %>
+              <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
+            <%end %>
+
+            <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
+            <% if pre_fund %>
+              <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-secondary" %>
+            <% else %>
+                     <div>
+                      <%= button_to deed_funds_path(@deed), method: :post do %>
+                      <i class=" btn fab fa-gratipay fa-3x index-button-icon p-0 "></i>
+                      <% end %>
+                    </div>
+            <% end %>
+     
   
-  </li>
-<%-# Else if the deed is fully funded, then allow others to review-%>
+    </div>
 
-        <% elsif %>
-          
-            <div style="text-align: center;"> 
-                <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
-                <% if pre_fund %>
-                  <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-secondary" %>
-                <% else %>
-                  <%= button_to 'Fund', deed_funds_path(@deed), method: :post, class: "m-2 btn btn-primary" %>
-                <% end %>
-            
-          </div>
- 
-        <% if can? :crud, @deed %>
-         <li class="list-group-item d-flex flex-row-reverse">
-          <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-secondary", data: {confirm: "Are you sure?"}) %> 
-          <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
-        <%end %>
-    <%end %>
-  </li>
-
-</div>
-
-<%-# COMMENT - Allow others to comment on Project - if complete or not-%>
-<div class="card m-2" style="width: 40rem;" >
-  <div class="card-body">
-   
-      <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
-        <%= f.input :body, label: 'Comments' %>
-        <%= f.submit({class: "btn btn-primary"}) %>
-      <% end %>
-
-   <br>
-      <% if @deed.comments.count > 0 %>
-      <% @deed.comments.each do |comment| %>
-        <% if comment.body? === true%>
-                <li>
-
-        <%= comment.body %> 
-         <small> by 
-         <%= comment.user.username unless comment.user.blank? %>
-         <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?  %>
-
-      
-       
-          
-          </small>
-         <% if can? :delete, comment %>
-          <small> <%= link_to 'Delete', [@deed, comment],
+   <div class="row">
+      <div class="col">
+     
+    <%-# If the deed is fully funded, then allow the user to update with results-%>
+      <% if @deed.fully_funded? and can? :crud, @deed %>
+        <li class="list-group-item align-items-center">
+          <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info align-items-center " ) %>
+          <li class="list-group-item">
+            <h5 class="card-title"> Completed deed: </h5>
+            <p class="card-body"> <%= @deed.completed_body %>  </p>
+            <div class="card-body">
+              <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
+            </div>
+          </li>
+          <%-# Else if the deed is fully funded, then allow others to review-%>
+        <% elsif @deed.fully_funded? and @deed.completed_body?%>
+          <li class="list-group-item align-items-center">
+            <p class="card-body"> <%= @deed.completed_body %>  </p>
+            <div class="card-body">
+              <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
+            </div>
+            <h3> Reviews</h3>
+            <%= simple_form_for [@deed, @deed.ratings.build] do |f| %>
+              <%= f.input :body,label: 'Your feedback' %>
+              <%= f.input :score, label: 'Rating', collection: 1..5  %>
+              <%= f.submit({class: "btn btn-primary"}) %>
+            <% end %>
+            <br>
+            <% @deed.ratings.each do |rating| %>
+              <li>
+                <%= rating.body %>
+                <%= rating.score %>
+                <small>
+                  <%= rating.user %>
+                </small>
+                <% if can? :delete, rating %>
+                  <small> <%= link_to 'Delete Comment', [@deed, rating],
                 method: :delete, data: { confirm: 'Are you sure?' } %>
-          </small>
+                  </small>
+                <% end %>
+              </li>
+            <% end %>
+          </li>
+        <% end %>
+      <%-# If the deed is fully funded, then allow others to review-%>
+  </div>
+      
+        
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <%-# COMMENT - Allow others to comment on Project - if complete or not-%>
+      <div class="card m-2" style="width: 100%;" >
+        <div class="card-body">
+          <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
+            <%= f.input :body, label: 'Comments' %>
+            <%= f.submit({class: "btn btn-primary"}) %>
           <% end %>
-         <% end %>
-        </li>
-      <% end %>
-       <% end %>
-
-   
+          <br>
+          <% if @deed.comments.count > 0 %>
+            <% @deed.comments.each do |comment| %>
+              <% if comment.body? === true%>
+                <li>
+                  <%= comment.body %>
+                  <small> by 
+                    <%= comment.user.username unless comment.user.blank? %>
+                    <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?  %>
+                  </small>
+                  <% if can? :delete, comment %>
+                    <small> <%= link_to 'Delete', [@deed, comment],
+                method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </small>
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </div>
+    </div>
   </div>
 </div>
 
 
 
+
+
+
+
+
+
+
+
+  <div class="row justify-content-md-center">
+    <%-# Display deed details -%>
+    <div class="card mt-4 m-2" style="width: 40rem;">
+      <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
+      <div class="card-body ">
+        <h4 class="card-title"><%= @deed.title %></h4>
+        <p class="card-text"><%= @deed.body %></p>
+        <p class="card-text"><small class="text-muted"> Created <%= time_ago_in_words ( @deed.created_at) %> ago, by <%= link_to @deed.user.username, user_path(@deed.user.id)%> in <%= @deed.city %> </small></p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: <%= @deed.percent_funded%>%; " aria-valuenow="<%= @deed.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= @deed.percent_funded%>%
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
+        </ul>
+      </div>
+
+      <%-# If the deed is fully funded, then allow the user to update with results-%>
+      <% if @deed.fully_funded? and can? :crud, @deed %>
+        <li class="list-group-item align-items-center">
+          <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info align-items-center " ) %>
+          <li class="list-group-item">
+            <h5 class="card-title"> Completed deed: </h5>
+            <p class="card-body"> <%= @deed.completed_body %>  </p>
+            <div class="card-body">
+              <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
+            </div>
+          </li>
+          <%-# Else if the deed is fully funded, then allow others to review-%>
+        <% elsif @deed.fully_funded? and @deed.completed_body?%>
+          <li class="list-group-item align-items-center">
+            <p class="card-body"> <%= @deed.completed_body %>  </p>
+            <div class="card-body">
+              <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
+            </div>
+            <h1> Reviews</h1>
+            <%= simple_form_for [@deed, @deed.ratings.build] do |f| %>
+              <%= f.input :body,label: 'Your feedback' %>
+              <%= f.input :score, label: 'Rating', collection: 1..5  %>
+              <%= f.submit({class: "btn btn-primary"}) %>
+            <% end %>
+            <br>
+            <% @deed.ratings.each do |rating| %>
+              <li>
+                <%= rating.body %>
+                <%= rating.score %>
+                <small>
+                  <%= rating.user %>
+                </small>
+                <% if can? :delete, rating %>
+                  <small> <%= link_to 'Delete Comment', [@deed, rating],
+                method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </small>
+                <% end %>
+              </li>
+            <% end %>
+          </li>
+          <%-# Else if the deed is fully funded, then allow others to review-%>
+        <% elsif %>
+          <div style="text-align: center;">
+            <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
+            <% if pre_fund %>
+              <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-secondary" %>
+            <% else %>
+                     <div>
+                      <%= button_to deed_funds_path(@deed), method: :post do %>
+                      <i class=" btn fab fa-gratipay fa-5x index-button-icon p-0 "></i>
+                      <% end %>
+                    </div>
+    
+            <% end %>
+          </div>
+          <% if can? :crud, @deed %>
+            <li class="list-group-item d-flex flex-row-reverse">
+              <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-secondary", data: {confirm: "Are you sure?"}) %>
+              <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
+            <%end %>
+          <%end %>
+        </li>
+      </div>
+      <%-# COMMENT - Allow others to comment on Project - if complete or not-%>
+      <div class="card m-2" style="width: 40rem;" >
+        <div class="card-body">
+          <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
+            <%= f.input :body, label: 'Comments' %>
+            <%= f.submit({class: "btn btn-primary"}) %>
+          <% end %>
+          <br>
+          <% if @deed.comments.count > 0 %>
+            <% @deed.comments.each do |comment| %>
+              <% if comment.body? === true%>
+                <li>
+                  <%= comment.body %>
+                  <small> by 
+                    <%= comment.user.username unless comment.user.blank? %>
+                    <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?  %>
+                  </small>
+                  <% if can? :delete, comment %>
+                    <small> <%= link_to 'Delete', [@deed, comment],
+                method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </small>
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
