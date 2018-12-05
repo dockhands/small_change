@@ -104,7 +104,9 @@
    <br>
       <% if @deed.comments.count > 0 %>
       <% @deed.comments.each do |comment| %>
-        <li>
+        <% if comment.body? === true%>
+                <li>
+
         <%= comment.body %> 
          <small> by 
          <%= comment.user.username unless comment.user.blank? %>
@@ -115,10 +117,11 @@
           
           </small>
          <% if can? :delete, comment %>
-          <small> <%= link_to 'Delete Comment', [@deed, comment],
+          <small> <%= link_to 'Delete', [@deed, comment],
                 method: :delete, data: { confirm: 'Are you sure?' } %>
           </small>
           <% end %>
+         <% end %>
         </li>
       <% end %>
        <% end %>

@@ -6,7 +6,6 @@ module DeedsHelper
 
     def mail_all_deed_funders(deed)
         
-        deed_funders = [] 
         deed.funds.each do |fund| 
         user = fund.user 
             DeedUpdateMailer.notify_deed_funder(user,deed).deliver_now

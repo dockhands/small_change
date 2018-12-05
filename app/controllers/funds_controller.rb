@@ -57,7 +57,7 @@ class FundsController < ApplicationController
         current_user.save
         fund.destroy
         flash[:success] =  "Removed funding"
-        redirect_to deeds_path 
+        redirect_back(fallback_location: root_path)
       end
     end 
 

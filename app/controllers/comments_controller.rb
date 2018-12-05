@@ -2,10 +2,10 @@ class CommentsController < ApplicationController
 
     def create
         @deed = Deed.find(params[:deed_id])
-        comment_params=  params.require(:comment).permit(:username, :created_at, :body)
-        @comment = @deed.comments.build(comment_params)
+        # @comment = @deed.comments.build(@comment_params)
+        @comment = Comment.new(comment_params)
         @comment.user = current_user
-        
+        @comment.deed_id = @deed.id
         if  @comment.save
             flash[:success] = "Comment created!"
             redirect_to deed_path(@deed)
@@ -16,21 +16,6 @@ class CommentsController < ApplicationController
      end
    
 
-    # def create 
-    #     @deed = Deed.find params[:deed_id]
-    #     comment_params = params.require(:comment).permit(:body)
-    #     @comment   = Comment.new comment_params
-    #     @comment.deed = @deed
-   
-    #     if  @comment.save
-    #     flash[:success] = "Comment created!"
-    #     redirect_to deed_path(@deed)
-
-    #     else
-    #     render '/deed/show'
-    #     end 
-    # end 
-
     def destroy
       
         @deed = Deed.find params[:deed_id]
@@ -39,4 +24,9 @@ class CommentsController < ApplicationController
         flash[:alert] = "Removed comment!"
         redirect_to deed_path(@deed)
     end
+
+    private 
+    def comment_params 
+        params.require(:comment).permit(:body)
+    end 
 end

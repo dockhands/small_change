@@ -11,6 +11,21 @@
 User.destroy_all
 Deed.destroy_all
 
+
+PASSWORD = "herewego"
+
+super_user = User.create(
+  username: "Dandan",
+  city: "Vancouver",
+  wallet: 30,
+  first_name: "Daniel",
+  last_name: "Hawkins",
+  email: "danielroberthawkins@gmail.com",
+  password: PASSWORD,
+  admin: true
+)
+
+
 r = Random.new
 
 require 'csv'
