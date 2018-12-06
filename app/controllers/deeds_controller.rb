@@ -68,6 +68,7 @@ class DeedsController < ApplicationController
         @deed = find_deed
         @deed.slug = nil
 
+        #when owner of deed updates a fully funded deed, mail all funders
         if @deed.update deed_params and @deed.fully_funded?
             mail_all_deed_funders(@deed)
             redirect_to deed_path(@deed)

@@ -26,7 +26,6 @@ class Deed < ApplicationRecord
     length: { minimum: 20, maximum: 500 }
     validates :money_required, presence: true
     validates :city, presence: true
-
     geocoded_by :address
     after_validation :geocode
     reverse_geocoded_by :latitude, :longitude

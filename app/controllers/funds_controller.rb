@@ -25,11 +25,9 @@ class FundsController < ApplicationController
      
         FundsMailer.notify_deed_owner(fund).deliver_now
         deed.meets_required_funding!
-        puts deed.aasm_state
         flash[:success] = "Deed fully funded!"
         redirect_back(fallback_location: root_path)
 
-     
       elsif fund.save && !(deed.funds.count === deed.money_required) 
         fund.user.wallet -= 1
         current_user.save
