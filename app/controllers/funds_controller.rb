@@ -23,8 +23,9 @@ class FundsController < ApplicationController
         deed.user.wallet += deed.money_required 
         deed.user.save 
      
-        FundsMailer.notify_deed_owner(fund).deliver_now
         deed.meets_required_funding!
+        FundsMailer.notify_deed_owner(fund).deliver_now
+
         flash[:success] = "Deed fully funded!"
         redirect_back(fallback_location: root_path)
 

@@ -1,63 +1,58 @@
-
 <div class="container">
   <div class="row">
-   <%-# deed IMAGE -%>
+    <%-# deed IMAGE -%>
     <div class="col">
-     <div class="card mt-4 ">
+      <div class="card mt-4 ">
         <div class="card-body ">
-        <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
+          <%= image_tag @deed.image,:class => "card-img-top" if @deed.image.attached?%>
         </div>
       </div>
     </div>
-  <%-# deed DETAILS -%>
+    <%-# deed DETAILS -%>
     <div class="col">
-     <div class="card mt-4">
-      <div class="card-body ">
-        <h4 class="card-title"><%= @deed.title %></h4>
-        <p class="card-text"><%= @deed.body %></p>
-        <p class="card-text"><small class="text-muted"> Created <%= time_ago_in_words ( @deed.created_at) %> ago, by <%= link_to @deed.user.username, user_path(@deed.user.id)%> in <%= @deed.city %> </small></p>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%>
-         
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: <%= @deed.percent_funded%>%; " aria-valuenow="<%= @deed.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= @deed.percent_funded%>%
+      <div class="card mt-4">
+        <div class="card-body ">
+          <h4 class="card-title"><%= @deed.title %></h4>
+          <p class="card-text"><%= @deed.body %></p>
+          <p class="card-text"><small class="text-muted"> Created <%= time_ago_in_words ( @deed.created_at) %> ago, by <%= link_to @deed.user.username, user_path(@deed.user.id)%> in <%= @deed.city %> </small></p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">  Raised $<%= @deed.funds.count%> of $<%= @deed.money_required%>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <%= @deed.percent_funded%>%; " aria-valuenow="<%= @deed.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= @deed.percent_funded%>%
+                </div>
               </div>
-            </div>
-          </li>
-          <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
-        </ul>
-      <div class="row justify-content-center m-2">
-         
+            </li>
+            <li class="list-group-item">Tags: <%=raw tag_links(@deed.all_tags)%> </li>
+          </ul>
+          <div class="row justify-content-center m-2">
             <% pre_fund = @deed.funds.find { |fund| fund.user_id == current_user.id} %>
-              <% if pre_fund && @deed.fully_funded? === false %>
-                <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-secondary btn-lg " %>
-              <% else %>
-                <div id="deed-buttons-container">
-                  <div>
-                    <%= button_to deed_funds_path(@deed), method: :post do %>
+            <% if pre_fund && @deed.fully_funded? === false %>
+              <%= button_to 'Unfund', deed_fund_path(@deed, pre_fund), method: :delete, class: "m-2 btn btn-secondary btn-lg " %>
+            <% else %>
+              <div id="deed-buttons-container">
+                <div>
+                  <%= button_to deed_funds_path(@deed), method: :post do %>
                     <i class=" btn fab fa-gratipay fa-4x index-button-icon p-0 "></i>
-                    <% end %>
-                  </div>
+                  <% end %>
+                </div>
               <% end %>
             </div>
-        </div>
-      <div class="row justify-content-center">
+          </div>
+          <div class="row justify-content-center">
             <div class="d-flex flex-row-reverse center-block">
               <% if can? :crud, @deed %>
                 <%= link_to('Delete', deed_path(@deed), method: :delete, class: " m-2 btn btn-secondary", data: {confirm: "Are you sure?"}) %>
                 <%= link_to('Edit',  edit_deed_path(@deed), class: " m-2 btn btn-info") %>
               <%end%>
             </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
- 
   <div class="row mt-4">
-      <div class="col ">
-     
-    <%-# If the deed is fully funded, then allow the user to update with results-%>
+    <div class="col ">
+      <%-# If the deed is fully funded, then allow the user to update with results-%>
       <% if @deed.fully_funded? and can? :crud, @deed %>
         <li class="list-group-item align-items-center">
           <%= link_to('Give Update',  edit_deed_path(@deed), class: " m-2 btn btn-info align-items-center " ) %>
@@ -70,7 +65,7 @@
           <%-# Else if the deed is fully funded, then allow others to review-%>
         <% elsif @deed.fully_funded? and @deed.completed_body?%>
           <li class="list-group-item align-items-center">
-           <h5 class="card-title"> Completed Deed: </h5>
+            <h5 class="card-title"> Completed Deed: </h5>
             <p class="card-body"> <%= @deed.completed_body %>  </p>
             <div class="card-body">
               <%= image_tag @deed.completed_image.variant(resize: '500X500') if @deed.completed_image.attached?%>
@@ -84,76 +79,63 @@
             <br>
             <% @deed.ratings.each do |rating| %>
               <% if rating.body? === true%>
-                  <div class="dialogbox">
-                      <div class="body">
-                        <small> 
-                          <%= rating.user.username unless rating.user.blank? %>
-                          <%= time_ago_in_words(rating.created_at) unless rating.created_at.blank? %> ago. 
-                          Rated: <%= rating.score %> / 5 stars
-                        </small>
-                        <span class="tip tip-left"></span>
-                        <div class="message">
-                          <span> <%= rating.body %></span>
-                      
-                        </div>
-                        <% if can? :delete, rating %>
-                        <small> <%= link_to 'Delete', [@deed, rating],
-                          method: :delete, data: { confirm: 'Are you sure?' } %>
-                        </small>
-                        <% end %>
-                      </div>
+                <div class="dialogbox">
+                  <div class="body">
+                    <small>
+                      <%= rating.user.username unless rating.user.blank? %>
+                      <%= time_ago_in_words(rating.created_at) unless rating.created_at.blank? %> ago. 
+                      Rated: <%= rating.score %> / 5 stars
+                    </small>
+                    <span class="tip tip-left"></span>
+                    <div class="message">
+                      <span> <%= rating.body %></span>
                     </div>
+                    <% if can? :delete, rating %>
+                      <small> <%= link_to 'Delete', [@deed, rating],
+                          method: :delete, data: { confirm: 'Are you sure?' } %>
+                      </small>
+                    <% end %>
+                  </div>
+                </div>
               <% end %>
-           <% end %>
-        <% end %>
-      <%-# If the deed is fully funded, then allow others to review-%>
-    </div>
-  </div>
-        
-
-
-
-  <div class="row ">
-      <%-# COMMENT - Allow others to comment on Project - if complete or not-%>
-      <div class="card m-3" style="width: 100%;" >
-        <div class="card-body">
-          <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
-            <%= f.input :body, label: 'Comments' %>
-            <%= f.submit({class: "btn btn-primary"}) %>
+            <% end %>
           <% end %>
-          <br>
-          <% if @deed.comments.count > 0 %>
-            <% @deed.comments.each do |comment| %>
-              <% if comment.body? === true%>
+          <%-# If the deed is fully funded, then allow others to review-%>
+        </div>
+      </div>
+      <div class="row ">
+        <%-# COMMENT - Allow others to comment on Project - if complete or not-%>
+        <div class="card m-3" style="width: 100%;" >
+          <div class="card-body">
+            <%= simple_form_for [@deed, @deed.comments.build] do |f| %>
+              <%= f.input :body, label: 'Comments' %>
+              <%= f.submit({class: "btn btn-primary"}) %>
+            <% end %>
+            <br>
+            <% if @deed.comments.count > 0 %>
+              <% @deed.comments.each do |comment| %>
+                <% if comment.body? === true%>
                   <div class="dialogbox">
-                      <div class="body">
-                        <small> 
-                          <%= comment.user.username unless comment.user.blank? %>
-                          <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?  %>
-                        </small>
-                        <span class="tip tip-left"></span>
-                        <div class="message">
-                          <span> <%= comment.body %></span>
-                        </div>
-                        <% if can? :delete, comment %>
+                    <div class="body">
+                      <small>
+                        <%= comment.user.username unless comment.user.blank? %>
+                        <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?  %>
+                      </small>
+                      <span class="tip tip-left"></span>
+                      <div class="message">
+                        <span> <%= comment.body %></span>
+                      </div>
+                      <% if can? :delete, comment %>
                         <small> <%= link_to 'Delete', [@deed, comment],
                           method: :delete, data: { confirm: 'Are you sure?' } %>
                         </small>
-                        <% end %>
-                      </div>
+                      <% end %>
                     </div>
+                  </div>
                 <% end %>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
+      </div>
     </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-

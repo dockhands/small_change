@@ -4,14 +4,10 @@ class Deed < ApplicationRecord
     has_many :comments, dependent: :destroy
     has_many :funds, dependent: :destroy
     has_many :users, through: :funds
-
     has_many :ratings, dependent: :destroy
     has_many :users, through: :ratings
-
-
     has_many :taggings, :dependent => :destroy
     has_many :tags, through: :taggings
-
     has_many :uninteresteds, dependent: :destroy
     has_many :users, through: :uninterests
 

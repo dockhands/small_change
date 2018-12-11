@@ -1,23 +1,18 @@
-
-<div class="container">  
+<div class="container">
   <div class="row justify-content-md-center" id="deed-index">
-
     <% @deeds.each do |d| %>
       <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
         <div class="card m-4 container-fluid p-0 card-shadow">
-         
-         <div class ="deed_container">
+          <div class ="deed_container">
             <%= image_tag d.image.variant(resize: '400X400'), class: 'img-fluid' if d.image.attached?%>
-       </div>
-        <div class="card-header bg-primary" >
-          <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>  
-        </div>
-
-          <div class="card-body bg-light">     
-            <li class="list-group-item">Raised: $<%= d.funds.count%> out of $<%= d.money_required%></li>   
-             
-              <li class="list-group-item">
-                <p class="card-title">
+          </div>
+          <div class="card-header bg-primary" >
+            <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>
+          </div>
+          <div class="card-body bg-light">
+            <li class="list-group-item">Raised: $<%= d.funds.count%> out of $<%= d.money_required%></li>
+            <li class="list-group-item">
+              <p class="card-title">
                 <% if current_user.present? %>
                   <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
                   <% if pre_fund %>
@@ -25,18 +20,12 @@
                   <% else %>
                     <%= button_to 'Fund', deed_funds_path(d), method: :post %>
                   <% end %>
-                  <% end %>
-                </p>
+                <% end %>
+              </p>
             </li>
           </div>
-        
-         </div>
+        </div>
       </div>
     <% end %>
   </div>
 </div>
-
-
-
- 
-   

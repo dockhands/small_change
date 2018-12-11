@@ -1,13 +1,8 @@
-
-<div class="container">  
-
+<div class="container">
   <% if @deeds == [] %>
     <div class="row justify-content-center">
-        <p> No deeds created yet...</p>
+      <p> No deeds created yet...</p>
     </div>
-
   <% else %>
-  
-   <%= render 'deed_index'%>
-
-    <% end %>
+    <%= render 'deed_index'%>
+  <% end %>

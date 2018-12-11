@@ -1,67 +1,52 @@
-
 <body id="deed-index">
-<div class="container">  
-
-  <div class="row justify-content-md-center">
-
-    <% @deeds.each do |d| %>
-             
-
-      <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
-        <div class="card m-3 container-fluid p-0 shadow p-3 mb-5 bg-white rounded">
-         
-         <div class ="deed_container">
-            <%= image_tag d.image.variant(resize: '400X400'), class: 'img-fluid' if d.image.attached?%>
-       </div>
-        <div class="card-header bg-primary" >
-          <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>  
-        </div>
-
-          <div class="card-body bg-light">     
-            <li class="list-group-item">Raised: $<%= d.funds.count%> out of $<%= d.money_required%> 
-        
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: <%= d.percent_funded%>%; " aria-valuenow="<%= d.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= d.percent_funded%>%</div>
-              </div>
-              </li>  
-
-            <% if current_user.present? && d.fully_funded? === false %>
-             <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
-             
-              <li class="list-group-item">
-                <p class="card-title">
-                <div id="deed-buttons-container">
-
-                  <% if pre_fund %>
-                    <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
-                  <% else %>
-
-                    <div>
-                      <%= button_to deed_uninteresteds_path(d), method: :post do %>
-                      <i class=" btn fas fa-times-circle fa-2x index-button-icon  p-0 " ></i>
-                      <% end %>
-                    </div>
-                    <div>
-                      <%= button_to deed_path(d), method: :get do %>
-                      <i class=" btn fas fa-info-circle fa-2x index-button-icon-info  p-0 " ></i>
-                      <% end %>
-                    </div>
-                    <div>
-                      <%= button_to deed_funds_path(d), method: :post do %>
-                      <i class=" btn fab fa-gratipay fa-2x index-button-icon p-0 "></i>
-                      <% end %>
-                    </div>
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <% @deeds.each do |d| %>
+        <div class="col-lg-4 col-sm-12 col-md-6" id="<%= d.id %>">
+          <div class="card m-3 container-fluid p-0 shadow p-3 mb-5 bg-white rounded">
+            <div class ="deed_container">
+              <%= image_tag d.image.variant(resize: '400X400'), class: 'img-fluid' if d.image.attached?%>
+            </div>
+            <div class="card-header bg-primary" >
+              <h5 class="card-title"><%= link_to d.title.slice(0, 50), deed_path(d) , :class=>"text-light"%></h5>
+            </div>
+            <div class="card-body bg-light">
+              <li class="list-group-item">Raised: $<%= d.funds.count%> out of $<%= d.money_required%>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: <%= d.percent_funded%>%; " aria-valuenow="<%= d.percent_funded%>" aria-valuemin="0" aria-valuemax="100"><%= d.percent_funded%>%</div>
                 </div>
-                  <% end %>
+              </li>
+              <% if current_user.present? && d.fully_funded? === false %>
+                <% pre_fund = d.funds.find { |fund| fund.user_id == current_user.id} %>
+                <li class="list-group-item">
+                  <p class="card-title">
+                    <div id="deed-buttons-container">
+                      <% if pre_fund %>
+                        <%= button_to 'Unfund', deed_fund_path(d, pre_fund), method: :delete %>
+                      <% else %>
+                        <div>
+                          <%= button_to deed_uninteresteds_path(d), method: :post do %>
+                            <i class=" btn fas fa-times-circle fa-2x index-button-icon  p-0 " ></i>
+                          <% end %>
+                        </div>
+                        <div>
+                          <%= button_to deed_path(d), method: :get do %>
+                            <i class=" btn fas fa-info-circle fa-2x index-button-icon-info  p-0 " ></i>
+                          <% end %>
+                        </div>
+                        <div>
+                          <%= button_to deed_funds_path(d), method: :post do %>
+                            <i class=" btn fab fa-gratipay fa-2x index-button-icon p-0 "></i>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
                   <% end %>
                 </p>
-            </li>
+              </li>
+            </div>
           </div>
-          
-        
-         </div>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-
